@@ -1,0 +1,11 @@
+.mine-container {
+	@apply flex items-center justify-center text-2xl font-bold cursor-pointer border border-gray-200 rounded-md shadow-md w-12 h-12 bg-stone-100;
+}
+
+.mine-container > * {
+	@apply select-none pointer-events-none;
+}
+
+.mined {
+	@apply bg-red-500 text-white;
+}
