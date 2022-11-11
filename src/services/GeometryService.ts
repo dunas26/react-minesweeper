@@ -9,5 +9,9 @@ export default {
 	},
 	coordinatesToIndex: function({ x, y }: Coordinates, width: number) {
 		return y * width + x;
+	},
+	validCoordinate: function({ x, y }: Coordinates, width: number, height: number) {
+		return x >= 0 && x < width
+			&& y >= 0 && y < height;
 	}
 }

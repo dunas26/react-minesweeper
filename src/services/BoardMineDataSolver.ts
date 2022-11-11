@@ -18,10 +18,9 @@ export default {
 					if (offsetX == 0 && offsetY == 0) continue;
 					const x = currentCoordinate.x + offsetX;
 					const y = currentCoordinate.y + offsetY;
-					if (x < 0 || x >= columnSize) continue;
-					if (y < 0 || y >= rowSize) continue;
-					const neighbor_idx = GeometryService.coordinatesToIndex({ x, y }, columnSize);
-					const isMined = nodes[neighbor_idx] == "x";
+					if (!GeometryService.validCoordinate({ x, y }, columnSize, rowSize)) continue
+					const neighborIdx = GeometryService.coordinatesToIndex({ x, y }, columnSize);
+					const isMined = nodes[neighborIdx] == "x";
 					if (isMined) neighborMineCount++;
 				}
 			}

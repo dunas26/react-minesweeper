@@ -1,9 +1,13 @@
 .mine-container {
 	@apply flex relative items-center justify-center text-2xl font-bold cursor-pointer border border-gray-200 rounded-md shadow-md w-12 h-12 bg-stone-100 transition-[transform,color] overflow-hidden;
-	@apply hover:-translate-y-[2px];
-	@apply active:translate-y-[2px] active:duration-[100ms];
+	@apply hover:translate-y-[2px] active:translate-y-[3px];
+	@apply hover:outline hover:outline-2 hover:-outline-offset-[3px] hover:outline-red-500;
 	@apply hover:after:content-[""] hover:after:absolute hover:after:inset-0 hover:after:bg-red-500 hover:after:opacity-50;
 	@apply active:after:bg-black active:after:opacity-10;
+}
+
+.mine-container:not(:hover) {
+	animation: opening 250ms forwards;
 }
 
 .mine-container > * {
@@ -16,4 +20,16 @@
 
 .empty {
 	@apply bg-gray-300;
+}
+
+@keyframes opening {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(4px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
 }

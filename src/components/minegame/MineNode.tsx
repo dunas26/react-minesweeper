@@ -1,14 +1,16 @@
+import { NIL } from 'uuid';
 import { useEffect, useState } from "react";
 import styles from "./MineNode.module.css";
 
 export interface MineNodeProps {
+	uuid?: string;
 	visible?: boolean;
 	surroundingMines?: number;
 	isMined?: boolean;
-	nodeClick?: () => void;
+	nodeClick?: (uuid: string) => void;
 }
 
-export function MineNode({ visible = false, surroundingMines = 0, isMined = false }: MineNodeProps) {
+export function MineNode({ uuid = NIL, visible = false, surroundingMines = 0, isMined = false, nodeClick = () => { } }: MineNodeProps) {
 
 	const [shown, setShown] = useState(visible);
 	useEffect(() => {
@@ -16,11 +18,11 @@ export function MineNode({ visible = false, surroundingMines = 0, isMined = fals
 	}, [visible])
 
 	const handleMineClick = function() {
-		setShown(true)
+		nodeClick(uuid);
 	}
 
 	const containerClasses = () => {
-		return styles.mineContainer + (isMined && shown ? ` ${styles.mined}` : "") + (surroundingMines == 0 && shown && !isMined ? ` ${styles.empty}` : "")
+		return styles.mineContainer + (isMined && shown ? ` ${styles.mined}` : "") + (surroundingMines == 0 && shown && !isMined ? ` ${styles.empty}` : "") + (shown ? ` ${styles.open}` : "")
 	}
 
 	const renderMine = () => {
