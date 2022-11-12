@@ -1,0 +1,4 @@
+.button-frame {
+	@apply bg-white p-4 py-2 rounded-md shadow-md border border-gray-200 transition-[transform,color];
+	@apply hover:outline hover:outline-2 hover:-outline-offset-[3px] hover:outline-blue-600 hover:-translate-y-[2px];
+}

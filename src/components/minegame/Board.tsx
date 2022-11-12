@@ -1,8 +1,12 @@
+import { useContext, useEffect, useState } from "react";
+
+import BoardGenerationService from "@services/BoardGenerationService";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
-import BoardGenerationService from "@services/BoardGenerationService";
-import { useEffect, useState } from "react";
-import { MineNode } from "./MineNode";
+import { MineNode } from "@components/minegame/MineNode";
+import styles from "./Board.module.css";
+import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
+import { Button } from "@components/ui/Button/Button";
 
 export interface BoardProps {
 	width: number;
@@ -12,22 +16,24 @@ export interface BoardProps {
 
 export function Board({ width, height, setupNodes }: BoardProps) {
 
-	const [isValid, setIsValid] = useState(checkValidity(setupNodes, width, height));
 	const [styleSection, setStyleSection] = useState(computeStyle(width))
 	const [mineNodes, setMineNodes] = useState<NodeState[]>([]);
+	const [actionable, setActionable] = useState<boolean>(true);
+
+	const dispatch = useContext(BoardDispatcherContext);
+	const state = useContext(BoardStateContext);
 
 	useEffect(() => {
 		setMineNodes(BoardGenerationService.buildInitialState(setupNodes, width, height))
-	}, [])
+		setStyleSection(computeStyle(width))
+	}, [setupNodes])
 
 	useEffect(() => {
-		setIsValid(checkValidity(setupNodes, width, height));
-		setStyleSection(computeStyle(width))
-	}, [setupNodes, width, height])
-
-	function checkValidity(setupNodes: SetupNodeData[], width: number, height: number) {
-		return setupNodes.length == (width * height)
-	}
+		const { gamestate } = state;
+		if (gamestate == "ongame") {
+			setActionable(true);
+		}
+	}, [state])
 
 	function computeStyle(width: number) {
 		return {
@@ -61,10 +67,15 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	}
 
 	function onNodeClick(uuid: string) {
+		if (!actionable) return;
 		const nodeIdx = mineNodes.findIndex(node => node.uuid === uuid);
 		if (nodeIdx === -1) return;
 		const node = mineNodes[nodeIdx];
 		openNode(node);
+		if (node.mined) {
+			dispatch({ type: 'gameover' });
+			setActionable(false);
+		}
 		setMineNodes([...mineNodes])
 	}
 
@@ -79,8 +90,14 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	}
 
 	return (
-		<section>
-			{isValid && renderBoard()}
+		<section className={styles.boardContainer}>
+			{renderBoard()}
+			{state.gamestate == "gameover" &&
+				<div className={styles.overlay} >
+					<p className={styles.messageHeading}>You lose</p>
+					<Button label="Restart" click={() => dispatch({ type: 'setup' })} />
+				</div>
+			}
 		</section>
 	)
 }
