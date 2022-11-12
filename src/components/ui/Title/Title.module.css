@@ -1,0 +1,35 @@
+.title-container {
+	@apply flex w-full h-full gap-2;
+}
+
+.title, .subtitle {
+	@apply font-sans;
+}
+
+.title {
+	@apply font-bold;
+}
+
+.subtitle {
+	@apply font-normal text-gray-500;
+}
+
+.subtitle.md-type {
+	@apply text-xl;
+}
+
+.title.md-type {
+	@apply text-3xl;
+}
+
+.icon-section {
+	@apply flex w-full h-auto;
+}
+
+.icon-section > * {
+	@apply m-auto;
+}
+
+.heading-sections {
+	@apply flex flex-col w-full h-full;
+}

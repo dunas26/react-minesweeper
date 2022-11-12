@@ -4,7 +4,7 @@ import BoardGenerationService from "@services/BoardGenerationService";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import { MineNode } from "@components/minegame";
-import { Button } from "@components/ui/Button/Button";
+import { Button } from "@components/ui";
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
 import styles from "./Board.module.css";
 
