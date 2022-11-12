@@ -1,5 +1,5 @@
 import { BoardProvider } from "@contexts/BoardProvider";
-import { BoardBuilder } from "@components/minegame/BoardBuilder";
+import { BoardBuilder } from "@components/minegame";
 
 export function App() {
 

@@ -4,7 +4,7 @@ import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import BoardGenerationService from "@services/BoardGenerationService";
 import BoardMineDataSolver from "@services/BoardMineDataSolver";
 import { useContext, useEffect, useState } from "react";
-import { Board } from "./Board";
+import { Board } from "@components/minegame";
 
 export function BoardBuilder() {
 

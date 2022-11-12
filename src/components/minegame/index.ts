@@ -1,1 +1,3 @@
-export { MineNode } from "./MineNode";
+export { MineNode } from "./MineNode/MineNode";
+export { Board } from "./Board/Board";
+export { BoardBuilder } from "./BoardBuilder/BoardBuilder";
