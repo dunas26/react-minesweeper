@@ -1,4 +1,4 @@
-import { Header } from "@layouts";
+import { Header, Sidebar } from "@layouts";
 import { ReactElement } from "react";
 
 export interface MainLayoutProps {
@@ -11,5 +11,6 @@ export function Main({ children = undefined }: MainLayoutProps) {
 		<main>
 			{!!children && children}
 		</main>
+			<Sidebar />
 	</section>
 }
