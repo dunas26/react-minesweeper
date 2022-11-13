@@ -1,0 +1,7 @@
+.game-container {
+	@apply grid grid-cols-2;
+}
+
+.game-container > * + * {
+	@apply border-l border-l-gray-300;
+}

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Main } from "@layouts";
-import { GameBoard } from "@pages/GameBoard";
+import { GameBoard } from "@pages";
 
 export function App() {
 
