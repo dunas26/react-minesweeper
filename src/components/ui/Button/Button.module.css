@@ -1,4 +1,18 @@
 .button-frame {
-	@apply bg-white p-4 py-2 rounded-md shadow-md border border-gray-200 transition-[transform,color];
-	@apply hover:outline hover:outline-2 hover:-outline-offset-[3px] hover:outline-blue-600 hover:-translate-y-[2px];
+	@apply flex gap-2 bg-white p-3 py-2 rounded-md shadow-md border border-gray-200 transition-[transform,color] overflow-hidden;
+	@apply hover:outline hover:outline-2 hover:-outline-offset-[3px] hover:outline-amber-500 hover:-translate-y-[2px];
+	@apply after:content-[""]; after:w-full;
+	@apply active:after:bg-black active:after:content-[""] active:translate-y-1;
+}
+
+.wait-frame {
+	@apply relative flex items-center justify-center
+}
+
+.spinner {
+	@apply text-amber-500 animate-spin absolute w-auto h-full;
+}
+
+.wait-label {
+	@apply opacity-0;
 }
