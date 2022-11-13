@@ -1,16 +1,19 @@
-import { Header, Sidebar } from "@layouts";
 import { ReactElement } from "react";
+import { Footer, Header, Sidebar } from "@layouts";
+
+import styles from "./Main.module.css";
 
 export interface MainLayoutProps {
 	children?: ReactElement
 }
 
 export function Main({ children = undefined }: MainLayoutProps) {
-	return <section>
+	return <section className={styles.mainContainer}>
 		<Header />
-		<main>
+		<main className={styles.mainSection}>
 			{!!children && children}
 		</main>
-			<Sidebar />
+		<Sidebar />
+		<Footer />
 	</section>
 }

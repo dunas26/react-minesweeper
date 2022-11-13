@@ -1,0 +1,3 @@
+.footer-container {
+	@apply flex w-full h-16 justify-center items-center border-t border-t-gray-300;
+}
