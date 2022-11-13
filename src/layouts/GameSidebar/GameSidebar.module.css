@@ -1,0 +1,7 @@
+.sidebarContainer {
+	@apply flex flex-col p-4 h-[calc(100vh-(10.05rem))] overflow-auto;
+}
+
+.viewport {
+	@apply flex flex-col p-4 gap-4;
+}
