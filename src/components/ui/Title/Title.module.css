@@ -1,5 +1,5 @@
 .title-container {
-	@apply flex w-full h-full gap-2;
+	@apply flex w-full h-fit gap-2;
 }
 
 .title, .subtitle {
@@ -23,7 +23,7 @@
 }
 
 .icon-section {
-	@apply flex w-full h-auto;
+	@apply flex w-full h-fit;
 }
 
 .icon-section > * {

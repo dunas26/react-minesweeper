@@ -20,9 +20,11 @@ export function Title({ title, subtitle, size = "md", icon = undefined }: TitleP
 	const subtitleClass = `${sizeClasses[size]} ${styles.subtitle}`
 
 	return <article className={styles.titleContainer}>
-		<section className={styles.iconSection}>
-			{!!icon && icon}
-		</section>
+		{!!icon &&
+			<section className={styles.iconSection}>
+				{icon}
+			</section>
+		}
 		<section className={styles.headingsSection}>
 			<p className={titleClass}>{title}</p>
 			{!!subtitle && <p className={subtitleClass}>{subtitle}</p>}
