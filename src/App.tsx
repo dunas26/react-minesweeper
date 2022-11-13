@@ -1,15 +1,20 @@
-import { BoardProvider } from "@contexts/BoardProvider";
-import { BoardBuilder } from "@components/minegame";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import { Main } from "@layouts";
+import { GameBoard } from "@pages/GameBoard";
 
 export function App() {
 
 	return (
-		<div className="App">
-			<Main />
-			<BoardProvider>
-				<BoardBuilder />
-			</BoardProvider>
-		</div>
+		<Router>
+			<div className="App">
+				<Main>
+					<Routes>
+						<Route path="/" element={<GameBoard />} />
+						<Route path="/statistics" element={<></>} />
+					</Routes>
+				</Main>
+			</div>
+		</Router>
 	)
 }
