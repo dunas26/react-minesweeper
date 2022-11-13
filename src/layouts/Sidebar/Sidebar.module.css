@@ -1,8 +1,21 @@
 .sidebar-container {
-	@apply absolute flex flex-col w-64 shadow-lg bg-white border p-4 inset-0 top-24;
+	@apply absolute flex bottom-0 left-0 w-64 top-24;
 }
 
-.sidebar-container header {
+.sidebar-container:not(.expanded) {
+	@apply w-fit;
+}
+
+.resizer {
+	@apply block h-full w-1 bg-gray-200;
+	@apply hover:bg-amber-500 cursor-col-resize;
+}
+
+.sidebar-container > main {
+	@apply flex flex-col w-full shadow-lg bg-white border p-4;
+}
+
+.sidebar-container > main > header {
 	@apply h-12;
 }
 

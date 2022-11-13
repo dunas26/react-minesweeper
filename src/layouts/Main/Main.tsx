@@ -12,16 +12,21 @@ export interface MainLayoutProps {
 }
 
 export function Main({ children = undefined }: MainLayoutProps) {
+
+	function sidebarButtons(expanded: boolean) {
+		return <>
+			<SidebarButton label="Play the game" expanded={expanded} icon={<RiGamepadLine className="w-8 h-auto" />} />
+			<SidebarButton label="Daily challenge" expanded={expanded} icon={<AiOutlineCalendar className="w-8 h-auto" />} />
+			<SidebarButton label="Ranking" expanded={expanded} icon={<AiOutlineTrophy className="w-8 h-auto" />} />
+		</>
+	}
+
 	return <section className={styles.mainContainer}>
 		<Header />
 		<main className={styles.mainSection}>
 			{!!children && children}
 		</main>
-		<Sidebar>
-			<SidebarButton label="Play the game" icon={<RiGamepadLine className="w-8 h-auto" />} />
-			<SidebarButton label="Daily challenge" icon={<AiOutlineCalendar className="w-8 h-auto" />} />
-			<SidebarButton label="Ranking" icon={<AiOutlineTrophy className="w-8 h-auto" />} />
-		</Sidebar>
+		<Sidebar children={(expanded: boolean) => sidebarButtons(expanded)} />
 		<Footer />
 	</section>
 }

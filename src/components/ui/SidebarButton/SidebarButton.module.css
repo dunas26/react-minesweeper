@@ -1,8 +1,13 @@
 .button-container {
 	@apply relative h-14 flex gap-3 items-center p-4 py-2 rounded-xl transition-[color,transform] bg-white overflow-hidden;
 	@apply after:content-[""] after:absolute after:w-full after:h-full after:inset-0;
-	@apply hover:bg-amber-100 hover:text-amber-700 hover:translate-x-2 hover:shadow-sm hover:outline hover:outline-2 hover:-outline-offset-2 hover:outline-amber-200;
-	@apply active:bg-white active:translate-x-0 active:after:bg-amber-600 active:after:opacity-30;
+	@apply hover:bg-amber-100 hover:text-amber-700 hover:shadow-sm hover:outline hover:outline-2 hover:-outline-offset-2 hover:outline-amber-200;
+	@apply active:bg-white active:after:bg-amber-600 active:after:opacity-30;
+}
+
+.button-container.expanded {
+	@apply active:translate-x-0;
+	@apply hover:translate-x-2;
 }
 
 .button-container:hover i > * {
