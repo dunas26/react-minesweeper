@@ -3,5 +3,5 @@
 }
 
 .main-section {
-	@apply flex-1;
+	@apply flex-1 grid grid-cols-[16rem,auto] grid-rows-1;
 }

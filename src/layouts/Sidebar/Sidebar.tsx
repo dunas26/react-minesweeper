@@ -9,7 +9,7 @@ export interface SidebarProps {
 
 export function Sidebar({ children }: SidebarProps) {
 
-	const [expanded, setExpanded] = useState(false);
+	const [expanded, setExpanded] = useState(true);
 
 	return <aside className={`${styles.sidebarContainer} ${expanded ? styles.expanded : ""}`} >
 		<main>

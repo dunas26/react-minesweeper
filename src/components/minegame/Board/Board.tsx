@@ -40,8 +40,9 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 			display: "grid",
 			gridTemplateColumns: `repeat(${width}, min-content)`,
 			width: "min-content",
-			margin: "1rem"
-		}
+			height: "max-content",
+			margin: "1rem",
+		} as React.CSSProperties
 	}
 
 	function openNode(state: NodeState) {

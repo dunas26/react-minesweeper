@@ -24,9 +24,9 @@ export function Main({ children = undefined }: MainLayoutProps) {
 	return <section className={styles.mainContainer}>
 		<Header />
 		<main className={styles.mainSection}>
+			<Sidebar children={(expanded: boolean) => sidebarButtons(expanded)} />
 			{!!children && children}
 		</main>
-		<Sidebar children={(expanded: boolean) => sidebarButtons(expanded)} />
 		<Footer />
 	</section>
 }
