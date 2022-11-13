@@ -1,0 +1,11 @@
+.card-container {
+	@apply grid grid-rows-[auto_2rem] gap-6 place-items-center w-full h-fit bg-white rounded-lg border border-gray-300 shadow-md p-6;
+}
+
+.value {
+	@apply font-light text-6xl;
+}
+
+.label {
+	@apply font-bold text-xl;
+}
