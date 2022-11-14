@@ -5,3 +5,7 @@
 .game-container > * + * {
 	@apply border-l border-l-gray-300;
 }
+
+.board-section {
+	@apply relative
+}

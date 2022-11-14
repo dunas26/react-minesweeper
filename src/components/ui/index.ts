@@ -5,3 +5,4 @@ export { SidebarButton } from "./SidebarButton/SidebarButton";
 export { KPICard } from "./KPICard/KPICard";
 export { BigToggle } from "./BigToggle/BigToggle";
 export { LabelDisplay } from "./LabelDisplay/LabelDisplay";
+export { Backdrop } from "./Backdrop/Backdrop";

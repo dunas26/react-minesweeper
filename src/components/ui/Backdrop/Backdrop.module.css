@@ -1,0 +1,7 @@
+.backdrop {
+	@apply flex items-center justify-center absolute inset-0 bg-[#00000050];
+}
+
+.message {
+	@apply text-white font-light text-6xl text-center;
+}

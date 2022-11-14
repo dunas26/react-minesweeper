@@ -4,8 +4,7 @@ import BoardGenerationService from "@services/BoardGenerationService";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import { MineNode } from "@components/minegame";
-import { Button } from "@components/ui";
-import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
+import { BoardDispatcherContext } from "@contexts/BoardProvider";
 import styles from "./Board.module.css";
 
 export interface BoardProps {
@@ -21,19 +20,11 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	const [actionable, setActionable] = useState<boolean>(true);
 
 	const dispatch = useContext(BoardDispatcherContext);
-	const state = useContext(BoardStateContext);
 
 	useEffect(() => {
 		setMineNodes(BoardGenerationService.buildInitialState(setupNodes, width, height))
 		setStyleSection(computeStyle(width))
 	}, [setupNodes])
-
-	useEffect(() => {
-		const { gamestate } = state;
-		if (gamestate == "ongame") {
-			setActionable(true);
-		}
-	}, [state])
 
 	function computeStyle(width: number) {
 		return {
@@ -93,12 +84,6 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	return (
 		<section className={styles.boardContainer}>
 			{renderBoard()}
-			{state.gamestate == "gameover" &&
-				<div className={styles.overlay} >
-					<p className={styles.messageHeading}>You lose</p>
-					<Button label="Restart" click={() => dispatch({ type: 'setup' })} />
-				</div>
-			}
 		</section>
 	)
 }
