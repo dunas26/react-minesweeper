@@ -14,6 +14,26 @@
 	@apply font-normal text-gray-500;
 }
 
+.title.low-emphasis {
+	@apply  font-normal text-gray-500;
+}
+
+.title.xs-type {
+	@apply text-xl;
+}
+
+.subtitle.xs-type {
+	@apply text-base;
+}
+
+.title.sm-type {
+	@apply text-2xl;
+}
+
+.subtitle.sm-type {
+	@apply text-lg;
+}
+
 .subtitle.md-type {
 	@apply text-xl;
 }

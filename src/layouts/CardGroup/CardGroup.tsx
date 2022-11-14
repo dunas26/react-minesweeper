@@ -1,4 +1,4 @@
-import { Title } from "@components/ui";
+import { Divider, Title } from "@components/ui";
 import { ReactElement } from "react";
 import styles from "./CardGroup.module.css";
 
@@ -11,7 +11,8 @@ export interface CardGroupProps {
 export function CardGroup({ children, title, subtitle }: CardGroupProps) {
 	return <section className={styles.cardGroupContainer}>
 		<header>
-			<Title title={title} subtitle={subtitle} />
+			<Title title={title} subtitle={subtitle} size="xs" titleStyle="low-emphasis" />
+			<Divider />
 		</header>
 		<main className={styles.contents}>
 			{!!children && children}
