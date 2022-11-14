@@ -32,7 +32,7 @@ export function GameSidebar() {
 			</CardGroup>
 			<CardGroup title="Board Actions">
 				<section className={styles.boardActions}>
-					<Button click={() => dispatch({ type: "setup" })} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
+					<Button click={() => dispatch({ type: "start-new" })} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 					<Button click={() => dispatch({ type: "reset" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 				</section>
 			</CardGroup>

@@ -17,14 +17,37 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 
 	const [styleSection, setStyleSection] = useState(computeStyle(width))
 	const [mineNodes, setMineNodes] = useState<NodeState[]>([]);
-	const [actionable, setActionable] = useState<boolean>(true);
+	const [actionable, setActionable] = useState(true);
+
+	const [timerActive, setTimerActive] = useState(true);
+	const [timerIntervalId, setTimerIntervalId] = useState(-1);
+
 
 	const state = useContext(BoardStateContext);
 	const dispatch = useContext(BoardDispatcherContext);
 
 	useEffect(() => {
+		return () => {
+			clearInterval(timerIntervalId)
+		}
+	}, [])
+
+	useEffect(() => {
+		if (timerActive) {
+			const intervalId = setInterval(() => {
+				dispatch({ type: 'timer_counting' })
+			}, 1000);
+			setTimerIntervalId(intervalId);
+		} else {
+			clearInterval(timerIntervalId);
+			setTimerIntervalId(-1);
+		}
+	}, [timerActive])
+
+	useEffect(() => {
 		const { gamestate } = state;
 		setActionable(gamestate === "ongame" || gamestate === "idle")
+		setTimerActive(gamestate === "ongame");
 	}, [state.gamestate])
 
 	useEffect(() => {
@@ -42,26 +65,27 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		} as React.CSSProperties
 	}
 
-	function openNode(state: NodeState) {
+	function openNode(nodeState: NodeState) {
 		function openAll() {
 			mineNodes.forEach(state => state.open = true)
 			setMineNodes(prevMineNodes => {
 				return [...prevMineNodes]
 			})
 		}
-		function open(state: NodeState) {
-			if (state.open || state.mined || state.flagged) return;
-			state.open = true;
+		function open(currentNodeState: NodeState) {
+			if (currentNodeState.open || currentNodeState.mined || currentNodeState.flagged) return;
+			currentNodeState.open = true;
 			setMineNodes(prevMineNodes => {
 				return [...prevMineNodes]
 			})
-			if (state.mineCount != 0) return;
-			state.neighbors?.forEach(nextState =>
+			if (currentNodeState.mineCount != 0) return;
+			currentNodeState.neighbors?.forEach(nextState =>
 				setTimeout(() => !nextState.open && open(nextState), 25)
 			)
 		}
-		state.mined ? openAll() : open(state);
-		state.open = true;
+		if (state.gamestate != "ongame") dispatch({ type: "gamestart" })
+		nodeState.mined ? openAll() : open(nodeState);
+		nodeState.open = true;
 	}
 
 	function onNodeClick(uuid: string) {

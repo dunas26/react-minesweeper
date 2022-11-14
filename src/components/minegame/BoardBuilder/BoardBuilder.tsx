@@ -28,7 +28,7 @@ export function BoardBuilder() {
 		const { grid, mineCount, seed } = BoardGenerationService.generate(width, height, minePercent);
 		boardDispatch<RecursivePartial<BoardState>>(
 			{
-				type: 'set-state',
+				type: 'build-state',
 				payload: {
 					board: { mineCount, seed, }
 				}
@@ -47,7 +47,7 @@ export function BoardBuilder() {
 		const { gamestate } = boardState;
 		if (gamestate == "preparing") {
 			setSetupNodes(generateBoard());
-			boardDispatch({ type: 'gamestart' })
+			boardDispatch({ type: 'idle' })
 		}
 	}, [boardState])
 
