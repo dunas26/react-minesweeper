@@ -9,3 +9,7 @@
 .value {
 	@apply px-4 py-1 bg-gray-200 font-mono;
 }
+
+.placeholder {
+	@apply font-mono;
+}
