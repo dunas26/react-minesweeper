@@ -1,11 +1,16 @@
-import { AiOutlinePlusCircle, AiOutlineReload } from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineAppstore, AiOutlineNumber, AiOutlinePlusCircle, AiOutlineReload } from "react-icons/ai";
+import { MdOutlineFlag } from "react-icons/md"
 
-import { Button, KPICard } from "@components/ui";
+import { BigToggle, Button, KPICard } from "@components/ui";
 import { CardGroup } from "@layouts";
 
 import styles from "./GameSidebar.module.css";
 
 export function GameSidebar() {
+
+	const [mode, setMode] = useState<"normal" | "spread" | "flag">("normal")
+
 	return <section className={styles.sidebarContainer}>
 		<div className={styles.viewport}>
 			<CardGroup title="Game Information">
@@ -21,7 +26,13 @@ export function GameSidebar() {
 					<Button label="Reset the board" icon={<AiOutlineReload className="w-8 h-auto text-cyan-500" />} />
 				</section>
 			</CardGroup>
-			<CardGroup title="Click Mode"></CardGroup>
+			<CardGroup title="Click Mode">
+				<section className="grid grid-cols-1 xl:grid-cols-3 gap-2">
+					<BigToggle on={mode == "normal"} click={() => setMode("normal")} label="Normal click mode" icon={<AiOutlineNumber className="w-8 h-auto" />} />
+					<BigToggle on={mode == "spread"} click={() => setMode("spread")} label="Spread open mode" icon={<AiOutlineAppstore className="w-8 h-auto" />} />
+					<BigToggle on={mode == "flag"} click={() => setMode("flag")} label="Spread open mode" icon={<MdOutlineFlag className="w-8 h-auto" />} />
+				</section>
+			</CardGroup>
 			<CardGroup title="Board Details"></CardGroup>
 		</div>
 	</section>
