@@ -1,7 +1,27 @@
 .backdrop {
 	@apply flex items-center justify-center absolute inset-0 bg-[#00000050];
+	animation: backdrop-show 250ms forwards ease-in-out;
 }
 
 .message {
 	@apply text-white font-light text-6xl text-center;
+	animation: message-show 400ms forwards ease-in-out;
+}
+
+@keyframes backdrop-show {
+	from {
+		@apply bg-[#00000000];
+	}
+	to {
+		@apply bg-[#00000050];
+	}
+}
+
+@keyframes message-show {
+	from {
+		@apply translate-y-8;
+	}
+	to {
+		@apply translate-y-0;
+	}
 }
