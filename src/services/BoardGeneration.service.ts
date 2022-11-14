@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import Rand from "rand-seed"
 
+import { BoardGameData } from '@interfaces/minegame/BoardGameData';
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import GeometryService from "./Geometry.service";
 import SeedingService from './Seeding.service';
 
-function generate(columns: number, rows: number, mineFillPercent: number = 0.1) {
+function generate(columns: number, rows: number, mineFillPercent: number = 0.1): BoardGameData {
 	const totalRows = columns * rows;
 	let grid = new Array<NodeData>(totalRows).fill(" " as NodeData);
 	let mineCount = Math.floor(totalRows * mineFillPercent);
@@ -24,7 +25,11 @@ function generate(columns: number, rows: number, mineFillPercent: number = 0.1) 
 		}
 	}
 
-	return grid;
+	return {
+		grid,
+		mineCount,
+		seed: SeedingService.getCurrentState().seed,
+	};
 }
 
 function buildInitialState(setupNodes: SetupNodeData[], width: number, height: number): NodeState[] {

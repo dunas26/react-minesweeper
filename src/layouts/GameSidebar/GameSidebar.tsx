@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineAppstore, AiOutlineNumber, AiOutlinePlusCircle, AiOutlineReload } from "react-icons/ai";
 import { MdOutlineFlag } from "react-icons/md"
 
@@ -11,16 +11,16 @@ import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvid
 export function GameSidebar() {
 
 	const [mode, setMode] = useState<"normal" | "spread" | "flag">("normal")
-	const { gamestate } = useContext(BoardStateContext)
+	const { gamestate, board, timeState } = useContext(BoardStateContext)
 	const dispatch = useContext(BoardDispatcherContext)
 
 	return <section className={styles.sidebarContainer}>
 		<div className={styles.viewport}>
 			<CardGroup title="Game Information" hide={gamestate == "gameover"}>
 				<section className={styles.gameInformation}>
-					<KPICard value={{ flags: 4, mines: 10 }} label="Flags / Mines" display={({ flags, mines }) => `${flags} / ${mines}`} colorClass="text-green-500" layoutClass={styles.flagMinesKpi} />
-					<KPICard value={1250} label="Game score" display={(score) => `${score}`} colorClass="text-red-500" />
-					<KPICard value={Math.random() * 12000} label="Current Game Time" display={(time) => new Date(time * 1000).toISOString().substring(14, 19)} colorClass="text-cyan-600" />
+					<KPICard value={{ flags: board.flagCount, mines: board.mineCount }} label="Flags / Mines" display={({ flags, mines }) => `${flags} / ${mines}`} colorClass="text-green-500" layoutClass={styles.flagMinesKpi} />
+					<KPICard value={board.score} label="Game score" display={(score) => `${score}`} colorClass="text-red-500" />
+					<KPICard value={timeState.elapsed} label="Current Game Time" display={(time) => new Date(time * 1000).toISOString().substring(14, 19)} colorClass="text-cyan-600" />
 				</section>
 			</CardGroup>
 			<CardGroup title="Click Mode" hide={gamestate == "gameover"}>
@@ -38,7 +38,7 @@ export function GameSidebar() {
 			</CardGroup>
 			<CardGroup title="Board Details" hide={gamestate == "gameover"}>
 				<section>
-					<LabelDisplay label="Seed" value="asdf123456789" />
+					<LabelDisplay label="Seed" value={board.seed} />
 				</section>
 			</CardGroup>
 		</div>

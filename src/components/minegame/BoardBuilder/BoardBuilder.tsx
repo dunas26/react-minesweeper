@@ -8,6 +8,8 @@ import BoardMineDataSolver from "@services/BoardMineDataSolver.service";
 import { Board } from "@components/minegame";
 
 import styles from "./BoardBuilder.module.css";
+import { BoardState } from "@interfaces/minegame/BoardState";
+import { RecursivePartial } from "@utils/types";
 
 export function BoardBuilder() {
 
@@ -23,8 +25,17 @@ export function BoardBuilder() {
 
 	function generateBoard() {
 		const { width, height, minePercent } = params;
-		const originNodes: NodeData[] = BoardGenerationService.generate(width, height, minePercent);
-		return BoardMineDataSolver.solve(originNodes, width, height);
+		const { grid, mineCount, seed } = BoardGenerationService.generate(width, height, minePercent);
+		boardDispatch<RecursivePartial<BoardState>>(
+			{
+				type: 'set-state',
+				payload: {
+					board: { mineCount, seed, }
+				}
+			},
+		)
+
+		return BoardMineDataSolver.solve(grid, width, height);
 	}
 
 	useEffect(() => {
