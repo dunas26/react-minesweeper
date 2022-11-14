@@ -5,3 +5,27 @@
 .viewport {
 	@apply flex flex-col p-4 gap-4;
 }
+
+.game-information {
+	@apply grid grid-cols-1 grid-rows-1 xl:grid-cols-2 xl:grid-rows-2 gap-4;
+}
+
+.flag-mines-kpi {
+	@apply col-start-1 col-end-2 xl:col-end-3;
+}
+
+.board-actions {
+	@apply grid grid-cols-1 xl:grid-cols-2 gap-2 w-full;
+}
+
+.click-mode {
+	@apply grid grid-cols-1 xl:grid-cols-3 gap-2;
+}
+
+.icon-size {
+	@apply w-8 h-auto;
+}
+
+.board-icon-color {
+	@apply text-cyan-500;
+}
