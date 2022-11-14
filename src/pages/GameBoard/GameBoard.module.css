@@ -1,5 +1,5 @@
 .game-container {
-	@apply grid grid-cols-2;
+	@apply grid grid-cols-[auto_25rem] xl:grid-cols-[auto_40rem] transition-[grid];
 }
 
 .game-container > * + * {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineAppstore, AiOutlineNumber, AiOutlinePlusCircle, AiOutlineReload } from "react-icons/ai";
 import { MdOutlineFlag } from "react-icons/md"
 
-import { BigToggle, Button, KPICard } from "@components/ui";
+import { BigToggle, Button, KPICard, LabelDisplay } from "@components/ui";
 import { CardGroup } from "@layouts";
 
 import styles from "./GameSidebar.module.css";
@@ -33,7 +33,11 @@ export function GameSidebar() {
 					<BigToggle on={mode == "flag"} click={() => setMode("flag")} label="Spread open mode" icon={<MdOutlineFlag className="w-8 h-auto" />} />
 				</section>
 			</CardGroup>
-			<CardGroup title="Board Details"></CardGroup>
+			<CardGroup title="Board Details">
+				<section>
+					<LabelDisplay label="Semilla" value="asdf123456789" />
+				</section>
+			</CardGroup>
 		</div>
 	</section>
 }
