@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import BoardGenerationService from "@services/BoardGenerationService";
+import BoardGenerationService from "@services/BoardGeneration.service";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import { MineNode } from "@components/minegame";

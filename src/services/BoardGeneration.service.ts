@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
+
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
-import GeometryService from "./GeometryService";
+import GeometryService from "./Geometry.service";
 
 function generate(columns: number, rows: number, mineFillPercent: number = 0.1) {
 	const totalRows = columns * rows;

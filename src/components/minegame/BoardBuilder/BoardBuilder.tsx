@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
 import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
 import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
-import BoardGenerationService from "@services/BoardGenerationService";
-import BoardMineDataSolver from "@services/BoardMineDataSolver";
+import BoardGenerationService from "@services/BoardGeneration.service";
+import BoardMineDataSolver from "@services/BoardMineDataSolver.service";
 import { Board } from "@components/minegame";
 
 import styles from "./BoardBuilder.module.css";

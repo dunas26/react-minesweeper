@@ -1,5 +1,5 @@
 import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
-import GeometryService from "@services/GeometryService";
+import GeometryService from "@services/Geometry.service";
 
 export default {
 	solve: function(nodes: NodeData[], columnSize: number, rowSize: number): SetupNodeData[] {
