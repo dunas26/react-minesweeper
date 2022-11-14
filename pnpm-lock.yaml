@@ -7,6 +7,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.0.1
   autoprefixer: ^10.4.8
   postcss: ^8.4.16
+  rand-seed: ^1.0.2
   react: ^18.2.0
   react-dom: ^18.2.0
   react-icons: ^4.6.0
@@ -19,6 +20,7 @@ specifiers:
 
 dependencies:
   '@types/uuid': 8.3.4
+  rand-seed: 1.0.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
@@ -1210,6 +1212,10 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
     dev: true
+
+  /rand-seed/1.0.2:
+    resolution: {integrity: sha512-Nu4jxelXx2hKyZJQvkRcUyc1n1ZDQk/VUYmY3hxYfXYGrMfCFqsJ9O6r5jtpt8KjqbllCB8qnIB86Oqy4s5gdw==}
+    dev: false
 
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
