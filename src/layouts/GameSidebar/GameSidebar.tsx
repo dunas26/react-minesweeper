@@ -30,7 +30,7 @@ export function GameSidebar() {
 				<section className={styles.clickMode}>
 					<BigToggle on={mode == "normal"} click={() => setMode("normal")} label="Normal click mode" icon={<AiOutlineNumber className={`${styles.iconSize}`} />} />
 					<BigToggle on={mode == "spread"} click={() => setMode("spread")} label="Spread open mode" icon={<AiOutlineAppstore className={`${styles.iconSize}`} />} />
-					<BigToggle on={mode == "flag"} click={() => setMode("flag")} label="Spread open mode" icon={<MdOutlineFlag className={`${styles.iconSize}`} />} />
+					<BigToggle on={mode == "flag"} click={() => setMode("flag")} label="Flag only mode" icon={<MdOutlineFlag className={`${styles.iconSize}`} />} />
 				</section>
 			</CardGroup>
 			<CardGroup title="Board Details">
