@@ -14,8 +14,6 @@ export function GameSidebar() {
 	const { gamestate } = useContext(BoardStateContext)
 	const dispatch = useContext(BoardDispatcherContext)
 
-	console.warn(gamestate)
-
 	return <section className={styles.sidebarContainer}>
 		<div className={styles.viewport}>
 			<CardGroup title="Game Information" hide={gamestate == "gameover"}>
@@ -35,7 +33,7 @@ export function GameSidebar() {
 			<CardGroup title="Board Actions">
 				<section className={styles.boardActions}>
 					<Button click={() => dispatch({ type: "setup" })} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
-					<Button click={() => dispatch({ type: "setup" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
+					<Button click={() => dispatch({ type: "reset" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 				</section>
 			</CardGroup>
 			<CardGroup title="Board Details" hide={gamestate == "gameover"}>

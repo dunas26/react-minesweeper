@@ -1,8 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import Rand from "rand-seed"
 
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import GeometryService from "./Geometry.service";
+import SeedingService from './Seeding.service';
 
 function generate(columns: number, rows: number, mineFillPercent: number = 0.1) {
 	const totalRows = columns * rows;
@@ -12,8 +14,9 @@ function generate(columns: number, rows: number, mineFillPercent: number = 0.1) 
 	if (mineCount > totalRows) mineCount = totalRows;
 	if (mineCount < 0) mineCount = 0.05 * totalRows;
 
+	const rand = new Rand(SeedingService.getCurrentState().seed);
 	for (let i = 0; i < mineCount;) {
-		const randomIdx = Math.floor(Math.random() * columns * rows);
+		const randomIdx = Math.floor(rand.next() * columns * rows);
 		const randomNode = grid[randomIdx];
 		if (randomNode != "x") {
 			grid[randomIdx] = "x";
