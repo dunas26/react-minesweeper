@@ -1,10 +1,13 @@
+import { useContext, useEffect, useState } from "react";
+
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
 import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
 import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import BoardGenerationService from "@services/BoardGenerationService";
 import BoardMineDataSolver from "@services/BoardMineDataSolver";
-import { useContext, useEffect, useState } from "react";
 import { Board } from "@components/minegame";
+
+import styles from "./BoardBuilder.module.css";
 
 export function BoardBuilder() {
 
@@ -38,6 +41,8 @@ export function BoardBuilder() {
 	}, [boardState])
 
 	return (
-		<Board setupNodes={setupNodes} height={params.height} width={params.width} />
+		<section className={styles.viewport}>
+			<Board setupNodes={setupNodes} height={params.height} width={params.width} />
+		</section>
 	)
 }
