@@ -4,7 +4,7 @@ import BoardGenerationService from "@services/BoardGeneration.service";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import { MineNode } from "@components/minegame";
-import { BoardDispatcherContext } from "@contexts/BoardProvider";
+import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
 import styles from "./Board.module.css";
 
 export interface BoardProps {
@@ -19,7 +19,13 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	const [mineNodes, setMineNodes] = useState<NodeState[]>([]);
 	const [actionable, setActionable] = useState<boolean>(true);
 
+	const state = useContext(BoardStateContext);
 	const dispatch = useContext(BoardDispatcherContext);
+
+	useEffect(() => {
+		const { gamestate } = state;
+		setActionable(gamestate === "ongame")
+	}, [state.gamestate])
 
 	useEffect(() => {
 		setMineNodes(BoardGenerationService.buildInitialState(setupNodes, width, height))
@@ -66,7 +72,6 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		openNode(node);
 		if (node.mined) {
 			dispatch({ type: 'gameover' });
-			setActionable(false);
 		}
 		setMineNodes([...mineNodes])
 	}
