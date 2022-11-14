@@ -1,13 +1,15 @@
+import { ClickMode } from "@apptypes/ClickMode";
 import { BoardState } from "@interfaces/minegame/BoardState";
 import SeedingService from "@services/Seeding.service";
 
 export interface BoardAction<T> {
-	type: 'reset' | 'start-new' | 'set-gameover' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting';
+	type: 'reset' | 'start-new' | 'set-gameover' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting' | 'set-mode';
 	payload?: T;
 }
 
 function buildDefaultValues(): BoardState {
 	return {
+		clickMode: "normal",
 		gamestate: 'preparing',
 		board: {
 			mineCount: 0,
@@ -39,6 +41,7 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 		case "build-state":
 			const defaultValues = buildDefaultValues();
 			const newState = {
+				clickMode: state.clickMode,
 				gamestate: (payload as BoardState).gamestate ?? state.gamestate ?? defaultValues.gamestate,
 				board: { ...defaultValues.board, ...state.board, ...(payload as BoardState).board },
 				timeState: defaultValues.timeState,
@@ -59,6 +62,8 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 			return { ...state, gamestate: 'gameover' }
 		case "set-idle":
 			return { ...state, gamestate: 'idle' }
+		case "set-mode":
+			return { ...state, clickMode: payload as ClickMode }
 		default:
 			throw new Error("Unhandled action on Board Reducer")
 	}

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineAppstore, AiOutlineNumber, AiOutlinePlusCircle, AiOutlineReload } from "react-icons/ai";
 import { MdOutlineFlag } from "react-icons/md"
 
@@ -7,12 +7,21 @@ import { CardGroup } from "@layouts";
 
 import styles from "./GameSidebar.module.css";
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
+import { ClickMode } from "@apptypes/ClickMode";
 
 export function GameSidebar() {
 
-	const [mode, setMode] = useState<"normal" | "spread" | "flag">("normal")
-	const { gamestate, board, timeState } = useContext(BoardStateContext)
+	const [mode, setMode] = useState<ClickMode>("normal")
+	const { gamestate, board, timeState, clickMode } = useContext(BoardStateContext)
 	const dispatch = useContext(BoardDispatcherContext)
+
+	useEffect(() => {
+		setMode(clickMode);
+	}, [clickMode])
+
+	useEffect(() => {
+		dispatch({ type: 'set-mode', payload: mode })
+	}, [mode])
 
 	return <section className={styles.sidebarContainer}>
 		<div className={styles.viewport}>

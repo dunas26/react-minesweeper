@@ -3,6 +3,7 @@ import { BoardAction, BoardReducer } from "@reducers/Board";
 import { BoardState } from "@interfaces/minegame/BoardState";
 
 const initialState: BoardState = {
+	clickMode: "normal",
 	gamestate: 'idle',
 	board: {
 		seed: "",

@@ -65,6 +65,11 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		} as React.CSSProperties
 	}
 
+	function flagNode(nodeState: NodeState) {
+		nodeState.flagged = !nodeState.flagged;
+		setMineNodes(prevMineNodes => [...prevMineNodes]);
+	}
+
 	function openNode(nodeState: NodeState) {
 		function openAll() {
 			mineNodes.forEach(state => state.open = true)
@@ -92,17 +97,22 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		const nodeIdx = mineNodes.findIndex(node => node.uuid === uuid);
 		if (nodeIdx === -1) return;
 		const node = mineNodes[nodeIdx];
-		openNode(node);
+		const clickMode = state.clickMode;
+		if (clickMode == "normal") {
+			openNode(node);
+		} else {
+			flagNode(node);
+		}
 		setMineNodes([...mineNodes])
 		if (state.gamestate != "ongame") dispatch({ type: "set-ongame" })
-		if (node.mined) dispatch({ type: 'set-gameover' });
+		if (node.open && node.mined) dispatch({ type: 'set-gameover' });
 	}
 
 	const renderBoard = () => {
 		return (
 			<section style={styleSection}>
-				{mineNodes.map(({ uuid, mined, mineCount: surroundingMines, open }) => {
-					return <MineNode key={uuid} uuid={uuid} isMined={mined} surroundingMines={surroundingMines} visible={open} nodeClick={onNodeClick} />
+				{mineNodes.map(({ uuid, mined, mineCount: surroundingMines, open, flagged }) => {
+					return <MineNode key={uuid} uuid={uuid} isMined={mined} isFlagged={flagged} surroundingMines={surroundingMines} visible={open} nodeClick={onNodeClick} />
 				})}
 			</section>
 		)
