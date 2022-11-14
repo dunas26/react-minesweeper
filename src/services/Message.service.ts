@@ -1,6 +1,6 @@
 
 const messages: { [key: string]: string } = {
-	game_gameover: "Don't worry. You can try again.",
+	game_gameover: "Wish you luck next time.",
 	game_preparing: "Please wait while we prepare your board.",
 }
 
