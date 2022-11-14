@@ -35,7 +35,7 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	useEffect(() => {
 		if (timerActive) {
 			const intervalId = setInterval(() => {
-				dispatch({ type: 'timer_counting' })
+				dispatch({ type: 'timer-counting' })
 			}, 1000);
 			setTimerIntervalId(intervalId);
 		} else {
@@ -83,7 +83,6 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 				setTimeout(() => !nextState.open && open(nextState), 25)
 			)
 		}
-		if (state.gamestate != "ongame") dispatch({ type: "gamestart" })
 		nodeState.mined ? openAll() : open(nodeState);
 		nodeState.open = true;
 	}
@@ -94,10 +93,9 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		if (nodeIdx === -1) return;
 		const node = mineNodes[nodeIdx];
 		openNode(node);
-		if (node.mined) {
-			dispatch({ type: 'gameover' });
-		}
 		setMineNodes([...mineNodes])
+		if (state.gamestate != "ongame") dispatch({ type: "set-ongame" })
+		if (node.mined) dispatch({ type: 'set-gameover' });
 	}
 
 	const renderBoard = () => {

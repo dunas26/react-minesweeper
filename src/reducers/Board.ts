@@ -2,7 +2,7 @@ import { BoardState } from "@interfaces/minegame/BoardState";
 import SeedingService from "@services/Seeding.service";
 
 export interface BoardAction<T> {
-	type: 'reset' | 'start-new' | 'gameover' | 'gamestart' | 'idle' | 'build-state' | 'timer_counting';
+	type: 'reset' | 'start-new' | 'set-gameover' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting';
 	payload?: T;
 }
 
@@ -44,7 +44,7 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 				timeState: defaultValues.timeState,
 			}
 			return newState;
-		case "timer_counting":
+		case "timer-counting":
 			const currentElapsedSeconds = state.timeState.elapsed;
 			return { ...state, timeState: { ...state.timeState, elapsed: currentElapsedSeconds + 1 } }
 		case "start-new":
@@ -53,11 +53,11 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 		case "reset":
 			const resetState = buildResetState(state);
 			return { ...resetState, gamestate: 'preparing' }
-		case "gamestart":
+		case "set-ongame":
 			return { ...state, gamestate: 'ongame' }
-		case "gameover":
+		case "set-gameover":
 			return { ...state, gamestate: 'gameover' }
-		case "idle":
+		case "set-idle":
 			return { ...state, gamestate: 'idle' }
 		default:
 			throw new Error("Unhandled action on Board Reducer")

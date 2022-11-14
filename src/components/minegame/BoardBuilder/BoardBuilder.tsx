@@ -47,7 +47,7 @@ export function BoardBuilder() {
 		const { gamestate } = boardState;
 		if (gamestate == "preparing") {
 			setSetupNodes(generateBoard());
-			boardDispatch({ type: 'idle' })
+			boardDispatch({ type: 'set-idle' })
 		}
 	}, [boardState])
 
