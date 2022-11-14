@@ -24,7 +24,7 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 
 	useEffect(() => {
 		const { gamestate } = state;
-		setActionable(gamestate === "ongame")
+		setActionable(gamestate === "ongame" || gamestate === "idle")
 	}, [state.gamestate])
 
 	useEffect(() => {

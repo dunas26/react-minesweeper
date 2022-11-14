@@ -25,17 +25,17 @@ export function GameSidebar() {
 					<KPICard value={Math.random() * 12000} label="Current Game Time" display={(time) => new Date(time * 1000).toISOString().substring(14, 19)} colorClass="text-cyan-600" />
 				</section>
 			</CardGroup>
-			<CardGroup title="Board Actions">
-				<section className={styles.boardActions}>
-					<Button click={() => dispatch({ type: "setup" })} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
-					<Button click={() => dispatch({ type: "setup" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
-				</section>
-			</CardGroup>
 			<CardGroup title="Click Mode" hide={gamestate == "gameover"}>
 				<section className={styles.clickMode}>
 					<BigToggle on={mode == "normal"} click={() => setMode("normal")} label="Normal click mode" icon={<AiOutlineNumber className={`${styles.iconSize}`} />} />
 					<BigToggle on={mode == "spread"} click={() => setMode("spread")} label="Spread open mode" icon={<AiOutlineAppstore className={`${styles.iconSize}`} />} />
 					<BigToggle on={mode == "flag"} click={() => setMode("flag")} label="Flag only mode" icon={<MdOutlineFlag className={`${styles.iconSize}`} />} />
+				</section>
+			</CardGroup>
+			<CardGroup title="Board Actions">
+				<section className={styles.boardActions}>
+					<Button click={() => dispatch({ type: "setup" })} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
+					<Button click={() => dispatch({ type: "setup" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 				</section>
 			</CardGroup>
 			<CardGroup title="Board Details" hide={gamestate == "gameover"}>
