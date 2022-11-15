@@ -9,3 +9,11 @@
 .warning-msg {
 	@apply flex items-center gap-1 text-red-500;
 }
+
+.seed-settings {
+	@apply flex gap-4 w-full items-end justify-between;
+}
+
+.seed-settings > input {
+	@apply flex-1;
+}

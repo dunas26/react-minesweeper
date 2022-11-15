@@ -5,7 +5,7 @@ export type ModalActionType = "open" | "close" | "update";
 
 export interface ModalAction<T> {
 	type: ModalActionType,
-	payload: RecursivePartial<T>
+	payload?: RecursivePartial<T>
 }
 
 const defaultValues: ModalState = {
@@ -30,11 +30,10 @@ export function modalReducer<T>(state: ModalState, { type, payload }: ModalActio
 			} as typeof buttons;
 			return { ...defaultValues, ...payload, buttons: stateButtons, show: true } as ModalState
 		case "close":
-			return state;
+			return { ...state, show: false } as ModalState
 		case "update":
 			return state;
 		default:
 			throw new Error("Unhandled modal action type");
 	}
-	return state;
 }

@@ -1,9 +1,13 @@
+.global-container {
+	@apply absolute inset-0;
+}
+
 .backdrop {
-	@apply absolute inset-0 flex items-center justify-center bg-[#00000050];
+	@apply absolute inset-0 bg-[#00000050];
 }
 
 .modal-container {
-	@apply flex flex-col gap-4 p-6 bg-white rounded-md shadow-md border border-gray-300;
+	@apply absolute top-[15%] left-[35%] z-10 flex flex-col gap-4 p-6 bg-white rounded-md shadow-md border border-gray-300;
 }
 
 .modal-container > header {
