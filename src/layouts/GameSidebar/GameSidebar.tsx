@@ -29,7 +29,7 @@ export function GameSidebar() {
 
 	return <section className={styles.sidebarContainer}>
 		<div className={styles.viewport}>
-			<CardGroup title="Game Information" hide={shouldBeHidden()}>
+			<CardGroup title="Game Information">
 				<section className={styles.gameInformation}>
 					<KPICard value={{ flags: board.flagCount, mines: board.mineCount }} label="Flags / Mines" display={({ flags, mines }) => `${flags} / ${mines}`} colorClass="text-green-500" layoutClass={styles.flagMinesKpi} />
 					<KPICard value={board.score} label="Game score" display={(score) => `${score}`} colorClass="text-red-500" />

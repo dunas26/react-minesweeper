@@ -1,10 +1,14 @@
 import { ClickMode } from "@apptypes/ClickMode";
 import { BoardState } from "@interfaces/minegame/BoardState";
+import { NodeState } from "@interfaces/minegame/NodeState";
 import { WinEvaluationParams } from "@interfaces/minegame/WinEvaluationParams";
+import ScoreService from "@services/Score.service";
 import SeedingService from "@services/Seeding.service";
 
+export type BoardActionType = 'reset' | 'start-new' | 'set-lost' | 'set-won' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting' | 'set-mode' | 'update-flagcount' | 'evaluate-win' | 'add-score';
+
 export interface BoardAction<T> {
-	type: 'reset' | 'start-new' | 'set-lost' | 'set-won' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting' | 'set-mode' | 'update-flagcount' | 'evaluate-win';
+	type: BoardActionType;
 	payload?: T;
 }
 
@@ -76,6 +80,9 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 				if (won) state.gamestate = "won";
 			}
 			return { ...state }
+		case "add-score":
+			const { score } = state.board;
+			return { ...state, board: { ...state.board, score: score + ScoreService.getScore(payload as NodeState) } }
 		default:
 			throw new Error("Unhandled action on Board Reducer")
 	}

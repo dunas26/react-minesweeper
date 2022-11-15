@@ -118,6 +118,7 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 			if (currentNodeState.open || currentNodeState.mined || currentNodeState.flagged) return;
 			currentNodeState.open = true;
 			updateMineNodes();
+			dispatch({ type: "add-score", payload: currentNodeState })
 			if (currentNodeState.mineCount != 0) return;
 			currentNodeState.neighbors?.filter(n => !n.flagged).forEach(nextState =>
 				setTimeout(() => !nextState.open && open(nextState), 25)
