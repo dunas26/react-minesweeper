@@ -25,3 +25,7 @@ html, body {
 	flex-direction: column;
 	min-height: 100%;
 }
+
+*, *:focus, *:focus-visible{
+	@apply outline-amber-400;
+}
