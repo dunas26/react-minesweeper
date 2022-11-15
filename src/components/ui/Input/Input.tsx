@@ -1,25 +1,37 @@
-import { useState } from "react";
+import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
 
 import styles from "./Input.module.css";
 
 export interface InputProps {
 	label?: string;
 	placeholder?: string;
-	initialValue?: string;
+	value?: string;
 	type?: string;
 	onValue?: (value: string) => void;
 }
 
-export function Input({ label = "", placeholder = "", initialValue = "", type = "text", onValue = (_value: string) => { } }: InputProps) {
+export function Input({ label = "", value = "", placeholder = "", type = "text", onValue = (_value: string) => { } }: InputProps) {
 
-	const [value, setValue] = useState(initialValue);
+	useEffect(() => {
+		setInternalValue(value);
+	}, [value])
 
-	function emitValue() {
+	const [internalValue, setInternalValue] = useState(value);
+	const [valueEmitTimeout, setValueEmitTimeout] = useState(-1);
+
+	function handleValueChange(e: ChangeEvent<HTMLInputElement>) {
+		setInternalValue(e.target.value)
+		clearTimeout(valueEmitTimeout);
+		const timeoutId = setTimeout(() => {
+			onValue(internalValue)
+			setValueEmitTimeout(-1);
+		}, 250);
+		setValueEmitTimeout(timeoutId);
 		onValue(value);
 	}
 
 	return <article className={styles.inputContainer}>
 		<label>{label}</label>
-		<input type={type} placeholder={placeholder} value={value} onChange={e => setValue(e.target.value)} onBlur={emitValue} />
+		<input type={type} placeholder={placeholder} value={internalValue} onChange={handleValueChange} />
 	</article>
 }
