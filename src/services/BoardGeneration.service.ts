@@ -13,7 +13,7 @@ function generate(columns: number, rows: number, mineFillPercent: number = 0.1):
 	let mineCount = Math.floor(totalRows * mineFillPercent);
 
 	if (mineCount > totalRows) mineCount = totalRows;
-	if (mineCount < 0) mineCount = 0.05 * totalRows;
+	if (mineCount <= 0) mineCount = Math.round(Math.max(1, 0.1 * totalRows));
 
 	const rand = new Rand(SeedingService.getCurrentState().seed);
 	for (let i = 0; i < mineCount;) {
