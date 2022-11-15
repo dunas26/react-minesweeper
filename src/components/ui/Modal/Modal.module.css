@@ -1,5 +1,6 @@
 .global-container {
 	@apply absolute inset-0;
+	animation: backdrop-show forwards 150ms;
 }
 
 .backdrop {
@@ -8,6 +9,7 @@
 
 .modal-container {
 	@apply absolute top-[15%] left-[35%] z-10 flex flex-col gap-4 p-6 bg-white rounded-md shadow-md border border-gray-300;
+	animation: backdrop-show forwards 250ms;
 }
 
 .modal-container > header {
@@ -22,4 +24,13 @@
 	@apply p-2 bg-white shadow-md border rounded-full transition-[transform,color];
 	@apply hover:outline hover:outline-2 hover:outline-amber-400 hover:-outline-offset-2 hover:-translate-y-[1px];
 	@apply active:bg-gray-200 active:translate-y-[1px];
+}
+
+@keyframes backdrop-show {
+	from {
+		@apply opacity-0;
+	}
+	to {
+		@apply opacity-100;
+	}
 }
