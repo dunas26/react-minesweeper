@@ -10,6 +10,7 @@ const initialState: ModalState = {
 	show: false,
 	children: [],
 	title: "Information",
+	storedPayload: undefined,
 	buttons: {
 		accept: { label: "Accept" },
 		cancel: { label: "Cancel" }

@@ -1,5 +1,5 @@
 export interface ModalButtonState {
 	label?: string;
 	display?: boolean;
-	click?: () => void;
+	click?: ((payload?: any) => void);
 }

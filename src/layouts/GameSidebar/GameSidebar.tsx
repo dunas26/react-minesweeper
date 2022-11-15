@@ -11,6 +11,7 @@ import { ClickMode } from "@apptypes/ClickMode";
 import { ModalDispatchContext } from "@contexts/ModalProvider";
 import { ModalState } from "@interfaces/ui/ModalState";
 import { CreateBoardForm } from "@layouts/CreateBoardForm/CreateBoardForm";
+import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
 
 export function GameSidebar() {
 
@@ -37,12 +38,15 @@ export function GameSidebar() {
 				title: "Create new board",
 				children: <CreateBoardForm />,
 				buttons: {
-					accept: { label: "Yes, build this board", click: () => { console.warn("Building board") } },
-					cancel: { label: "No, take me back", click: () => { console.warn("Cancelling action") } }
+					accept: {
+						label: "Yes, build this board", click: (value: BoardBuildParams) => {
+							dispatch({ type: "start-new", payload: { ...value } })
+						}
+					},
+					cancel: { label: "No, take me back", click: () => { } }
 				}
 			}
 		})
-		dispatch({ type: "start-new" })
 	}
 
 	return <section className={styles.sidebarContainer}>

@@ -1,4 +1,5 @@
 import { ClickMode } from "@apptypes/ClickMode";
+import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
 import { BoardState } from "@interfaces/minegame/BoardState";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { WinEvaluationParams } from "@interfaces/minegame/WinEvaluationParams";
@@ -16,6 +17,11 @@ function buildDefaultValues(): BoardState {
 	return {
 		clickMode: "normal",
 		gamestate: 'preparing',
+		buildParameters: {
+			height: 5,
+			width: 5,
+			minePercent: 0.1,
+		},
 		board: {
 			mineCount: 0,
 			seed: "",
@@ -42,22 +48,23 @@ function buildResetState(prevState: BoardState): BoardState {
 }
 
 export function BoardReducer<T>(state: BoardState, { type, payload }: BoardAction<T>): BoardState {
+	const defaultValues = buildDefaultValues();
 	switch (type) {
 		case "build-state":
-			const defaultValues = buildDefaultValues();
 			const newState = {
 				clickMode: state.clickMode,
 				gamestate: (payload as BoardState).gamestate ?? state.gamestate ?? defaultValues.gamestate,
 				board: { ...defaultValues.board, ...state.board, ...(payload as BoardState).board },
 				timeState: defaultValues.timeState,
-			}
+				buildParameters: { ...defaultValues.buildParameters, ...state.buildParameters }
+			} as BoardState
 			return newState;
 		case "timer-counting":
 			const currentElapsedSeconds = state.timeState.elapsed;
 			return { ...state, timeState: { ...state.timeState, elapsed: currentElapsedSeconds + 1 } }
 		case "start-new":
 			SeedingService.changeCurrentSeed()
-			return { ...state, board: { ...state.board, score: 0 }, gamestate: 'preparing' }
+			return { ...state, board: { ...state.board, score: 0 }, buildParameters: { ...defaultValues.buildParameters, ...(payload as BoardBuildParams) }, gamestate: 'preparing' }
 		case "reset":
 			const resetState = buildResetState(state);
 			return { ...resetState, gamestate: 'preparing' }

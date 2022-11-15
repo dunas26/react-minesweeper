@@ -23,6 +23,18 @@ export function BoardBuilder() {
 		minePercent: 0.1
 	});
 
+	useEffect(() => {
+		const { buildParameters } = boardState;
+		if (!parametersHaveChanged(buildParameters)) return;
+		setParams(buildParameters);
+	}, [boardState.buildParameters])
+
+	function parametersHaveChanged(board: BoardBuildParams) {
+		return !!board && (board.width != params.width
+			|| board.height != params.height
+			|| board.minePercent != params.minePercent);
+	}
+
 	function generateBoard() {
 		const { width, height, minePercent } = params;
 		const { grid, mineCount, seed } = BoardGenerationService.generate(width, height, minePercent);
@@ -41,15 +53,8 @@ export function BoardBuilder() {
 	useEffect(() => {
 		const board = generateBoard();
 		setSetupNodes(board);
+		boardDispatch({ type: 'set-idle' })
 	}, [params])
-
-	useEffect(() => {
-		const { gamestate } = boardState;
-		if (gamestate == "preparing") {
-			setSetupNodes(generateBoard());
-			boardDispatch({ type: 'set-idle' })
-		}
-	}, [boardState])
 
 	return (
 		<section className={styles.viewport}>

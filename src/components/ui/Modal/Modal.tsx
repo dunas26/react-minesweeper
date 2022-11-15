@@ -6,7 +6,7 @@ import { Title } from "../Title/Title";
 
 import styles from "./Modal.module.css";
 import { AiOutlineCheck, AiOutlineClose, AiOutlineCloseCircle } from "react-icons/ai";
-import { ModalDispatchContext } from "@contexts/ModalProvider";
+import { ModalDispatchContext, ModalStateContext } from "@contexts/ModalProvider";
 
 export interface ModalProps {
 	children?: ReactElement | ReactElement[],
@@ -20,6 +20,7 @@ export interface ModalProps {
 export function Modal({ title, subtitle, children, buttons, backdropClick, closeButtonClick }: ModalProps) {
 	const { accept, cancel } = buttons;
 	const dispatch = useContext(ModalDispatchContext);
+	const state = useContext(ModalStateContext);
 
 	function sendCloseModalSignal(sender: "close-button" | "backdrop-button") {
 		if (sender == "close-button" && !!closeButtonClick) closeButtonClick();
@@ -30,6 +31,10 @@ export function Modal({ title, subtitle, children, buttons, backdropClick, close
 	function handleCancelClick() {
 		if (!!cancel.click) cancel.click();
 		sendCloseModalSignal("close-button");
+	}
+
+	function handleAcceptClick() {
+		if (!!accept.click) accept.click(state.storedPayload);
 	}
 
 	return <section className={styles.globalContainer}>
@@ -46,7 +51,7 @@ export function Modal({ title, subtitle, children, buttons, backdropClick, close
 			</main>
 			<footer>
 				<Button label={cancel.label} click={handleCancelClick} icon={<AiOutlineCloseCircle className="w-6 h-auto text-red-500" />} />
-				<Button label={accept.label} click={accept.click} icon={<AiOutlineCheck className="w-6 h-auto text-lime-500" />} />
+				<Button label={accept.label} click={handleAcceptClick} icon={<AiOutlineCheck className="w-6 h-auto text-lime-500" />} />
 			</footer>
 		</article>
 		<div className={styles.backdrop} onClick={() => sendCloseModalSignal("backdrop-button")}>

@@ -5,7 +5,8 @@ export interface ModalState {
 	show: boolean;
 	title: string;
 	subtitle?: string;
-	children: ReactElement | ReactElement[]
+	children: ReactElement | ReactElement[];
+	storedPayload: any;
 	buttons: {
 		accept: ModalButtonState,
 		cancel: ModalButtonState
