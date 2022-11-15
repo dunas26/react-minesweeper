@@ -1,0 +1,21 @@
+.backdrop {
+	@apply absolute inset-0 flex items-center justify-center bg-[#00000050];
+}
+
+.modal-container {
+	@apply flex flex-col gap-4 p-6 bg-white rounded-md shadow-md border border-gray-300;
+}
+
+.modal-container > header {
+	@apply flex items-center justify-between gap-4;
+}
+
+.modal-container > footer {
+	@apply flex items-center justify-end gap-4;
+}
+
+.close-button {
+	@apply p-2 bg-white shadow-md border rounded-full transition-[transform,color];
+	@apply hover:outline hover:outline-2 hover:outline-amber-400 hover:-outline-offset-2 hover:-translate-y-[1px];
+	@apply active:bg-gray-200 active:translate-y-[1px];
+}

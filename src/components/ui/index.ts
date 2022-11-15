@@ -6,3 +6,5 @@ export { KPICard } from "./KPICard/KPICard";
 export { BigToggle } from "./BigToggle/BigToggle";
 export { LabelDisplay } from "./LabelDisplay/LabelDisplay";
 export { Backdrop } from "./Backdrop/Backdrop";
+export { Modal } from "./Modal/Modal";
+export { ModalDataFeeder } from "./ModalDataFeeder/ModalDataFeeder"

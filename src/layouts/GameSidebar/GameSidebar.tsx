@@ -8,12 +8,15 @@ import { CardGroup } from "@layouts";
 import styles from "./GameSidebar.module.css";
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
 import { ClickMode } from "@apptypes/ClickMode";
+import { ModalDispatchContext } from "@contexts/ModalProvider";
+import { ModalState } from "@interfaces/ui/ModalState";
 
 export function GameSidebar() {
 
-	const [mode, setMode] = useState<ClickMode>("normal")
-	const { gamestate, board, timeState, clickMode } = useContext(BoardStateContext)
-	const dispatch = useContext(BoardDispatcherContext)
+	const { gamestate, board, timeState, clickMode } = useContext(BoardStateContext);
+	const dispatch = useContext(BoardDispatcherContext);
+	const modalDispatch = useContext(ModalDispatchContext);
+	const [mode, setMode] = useState<ClickMode>("normal");
 
 	useEffect(() => {
 		setMode(clickMode);
@@ -25,6 +28,19 @@ export function GameSidebar() {
 
 	function shouldBeHidden() {
 		return gamestate == "lost" || gamestate == "won"
+	}
+
+	function handleStartNewGame() {
+		modalDispatch<ModalState>({
+			type: "open", payload: {
+				title: "Create new board",
+				buttons: {
+					accept: { label: "Yes, build this board", click: () => { console.warn("Building board") } },
+					cancel: { label: "No, take me back", click: () => { console.warn("Cancelling action") } }
+				}
+			}
+		})
+		dispatch({ type: "start-new" })
 	}
 
 	return <section className={styles.sidebarContainer}>
@@ -45,7 +61,7 @@ export function GameSidebar() {
 			</CardGroup>
 			<CardGroup title="Board Actions">
 				<section className={styles.boardActions}>
-					<Button click={() => dispatch({ type: "start-new" })} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
+					<Button click={handleStartNewGame} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 					<Button click={() => dispatch({ type: "reset" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 				</section>
 			</CardGroup>
