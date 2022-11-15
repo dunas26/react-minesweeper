@@ -21,11 +21,11 @@ const initialState: BoardState = {
 export const BoardStateContext = createContext<BoardState>(initialState);
 export const BoardDispatcherContext = createContext<<T>(action: BoardAction<T>) => void>(() => { });
 
-export interface GlobalProviderProps {
+export interface BoardProviderProps {
 	children?: ReactNode
 }
 
-export function BoardProvider({ children = [] }: GlobalProviderProps) {
+export function BoardProvider({ children = [] }: BoardProviderProps) {
 	const [state, dispatch] = useReducer(BoardReducer, initialState)
 	return <BoardStateContext.Provider value={state}>
 		<BoardDispatcherContext.Provider value={dispatch}>
