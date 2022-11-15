@@ -1,9 +1,10 @@
 import { ClickMode } from "@apptypes/ClickMode";
 import { BoardState } from "@interfaces/minegame/BoardState";
+import { WinEvaluationParams } from "@interfaces/minegame/WinEvaluationParams";
 import SeedingService from "@services/Seeding.service";
 
 export interface BoardAction<T> {
-	type: 'reset' | 'start-new' | 'set-gameover' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting' | 'set-mode';
+	type: 'reset' | 'start-new' | 'set-lost' | 'set-won' | 'set-ongame' | 'set-idle' | 'build-state' | 'timer-counting' | 'set-mode' | 'update-flagcount' | 'evaluate-win';
 	payload?: T;
 }
 
@@ -58,12 +59,23 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 			return { ...resetState, gamestate: 'preparing' }
 		case "set-ongame":
 			return { ...state, gamestate: 'ongame' }
-		case "set-gameover":
-			return { ...state, gamestate: 'gameover' }
+		case "set-lost":
+			return { ...state, gamestate: 'lost' }
 		case "set-idle":
 			return { ...state, gamestate: 'idle' }
 		case "set-mode":
 			return { ...state, clickMode: payload as ClickMode }
+		case "update-flagcount":
+			return { ...state, board: { ...state.board, flagCount: payload as number } }
+		case "evaluate-win":
+			const { closed } = payload as WinEvaluationParams;
+			const { mineCount } = state.board;
+			if (closed.length == mineCount) {
+				const closedMines = closed.filter(n => n.mined).length;
+				const won = closedMines == mineCount;
+				if (won) state.gamestate = "won";
+			}
+			return { ...state }
 		default:
 			throw new Error("Unhandled action on Board Reducer")
 	}

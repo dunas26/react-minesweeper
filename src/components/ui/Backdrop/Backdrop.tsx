@@ -9,7 +9,7 @@ export function Backdrop() {
 
 	useEffect(() => {
 		const { gamestate } = state;
-		setActive(gamestate == "gameover" || gamestate == "preparing")
+		setActive(gamestate == "won" || gamestate == "lost" || gamestate == "preparing")
 	}, [state.gamestate])
 
 	return <>

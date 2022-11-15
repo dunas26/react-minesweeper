@@ -6,6 +6,7 @@ import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import { MineNode } from "@components/minegame";
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
 import styles from "./Board.module.css";
+import { WinEvaluationParams } from "@interfaces/minegame/WinEvaluationParams";
 
 export interface BoardProps {
 	width: number;
@@ -33,6 +34,20 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 	}, [])
 
 	useEffect(() => {
+		if (state.gamestate != "ongame") return;
+		const winEvalTimeout = setTimeout(() => {
+			const closed = mineNodes.filter(n => !n.open);
+			console.warn({ closed: closed.length })
+			dispatch({
+				type: 'evaluate-win', payload: {
+					closed
+				} as WinEvaluationParams
+			})
+		}, 200);
+		return () => clearTimeout(winEvalTimeout)
+	}, [mineNodes])
+
+	useEffect(() => {
 		if (timerActive) {
 			const intervalId = setInterval(() => {
 				dispatch({ type: 'timer-counting' })
@@ -48,12 +63,21 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		const { gamestate } = state;
 		setActionable(gamestate === "ongame" || gamestate === "idle")
 		setTimerActive(gamestate === "ongame");
+
+		if (state.gamestate == "won") {
+			mineNodes.filter(n => n.mined).forEach(n => n.flagged = true);
+			updateMineNodes();
+		}
 	}, [state.gamestate])
 
 	useEffect(() => {
 		setMineNodes(BoardGenerationService.buildInitialState(setupNodes, width, height))
 		setStyleSection(computeStyle(width))
 	}, [setupNodes])
+
+	function updateMineNodes() {
+		setMineNodes(prevMineNodes => [...prevMineNodes])
+	}
 
 	function computeStyle(width: number) {
 		return {
@@ -67,22 +91,18 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 
 	function flagNode(nodeState: NodeState) {
 		nodeState.flagged = !nodeState.flagged;
-		setMineNodes(prevMineNodes => [...prevMineNodes]);
+		updateMineNodes();
 	}
 
 	function openNode(nodeState: NodeState) {
 		function openAll() {
 			mineNodes.forEach(state => state.open = true)
-			setMineNodes(prevMineNodes => {
-				return [...prevMineNodes]
-			})
+			updateMineNodes();
 		}
 		function open(currentNodeState: NodeState) {
 			if (currentNodeState.open || currentNodeState.mined || currentNodeState.flagged) return;
 			currentNodeState.open = true;
-			setMineNodes(prevMineNodes => {
-				return [...prevMineNodes]
-			})
+			updateMineNodes();
 			if (currentNodeState.mineCount != 0) return;
 			currentNodeState.neighbors?.forEach(nextState =>
 				setTimeout(() => !nextState.open && open(nextState), 25)
@@ -99,13 +119,13 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		const node = mineNodes[nodeIdx];
 		const clickMode = state.clickMode;
 		if (clickMode == "normal") {
-			openNode(node);
+			if (!node.flagged) openNode(node);
 		} else {
-			flagNode(node);
+			if (!node.open) flagNode(node);
 		}
 		setMineNodes([...mineNodes])
 		if (state.gamestate != "ongame") dispatch({ type: "set-ongame" })
-		if (node.open && node.mined) dispatch({ type: 'set-gameover' });
+		if (node.open && node.mined) dispatch({ type: 'set-lost' });
 	}
 
 	const renderBoard = () => {
