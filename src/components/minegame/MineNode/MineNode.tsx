@@ -11,17 +11,26 @@ export interface MineNodeProps {
 	isMined?: boolean;
 	isFlagged?: boolean;
 	nodeClick?: (uuid: string) => void;
+	rightClick?: (uuid: string) => void;
 }
 
-export function MineNode({ uuid = NIL, visible = false, surroundingMines = 0, isMined = false, nodeClick = () => { }, isFlagged = false }: MineNodeProps) {
+export function MineNode({ uuid = NIL, visible = false, surroundingMines = 0, isMined = false, nodeClick = () => { }, rightClick = () => { }, isFlagged = false }: MineNodeProps) {
 
 	const [shown, setShown] = useState(visible);
 	useEffect(() => {
 		setShown(visible);
 	}, [visible])
 
+	function disableContextMenu(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+		e.preventDefault();
+	}
+
 	function handleMineClick() {
 		nodeClick(uuid);
+	}
+
+	function handleRightClick() {
+		rightClick(uuid)
 	}
 
 	const containerClasses = () => {
@@ -38,7 +47,7 @@ export function MineNode({ uuid = NIL, visible = false, surroundingMines = 0, is
 		</p>
 	}
 
-	return <article className={containerClasses()} onClick={handleMineClick}>
+	return <article className={containerClasses()} onClick={handleMineClick} onAuxClick={handleRightClick} onContextMenu={disableContextMenu}>
 		{
 			isFlagged ? renderFlag() : (shown && renderMine())
 		}
