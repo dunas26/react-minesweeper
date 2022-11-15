@@ -10,6 +10,7 @@ import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvid
 import { ClickMode } from "@apptypes/ClickMode";
 import { ModalDispatchContext } from "@contexts/ModalProvider";
 import { ModalState } from "@interfaces/ui/ModalState";
+import { CreateBoardForm } from "@layouts/CreateBoardForm/CreateBoardForm";
 
 export function GameSidebar() {
 
@@ -34,6 +35,7 @@ export function GameSidebar() {
 		modalDispatch<ModalState>({
 			type: "open", payload: {
 				title: "Create new board",
+				children: <CreateBoardForm />,
 				buttons: {
 					accept: { label: "Yes, build this board", click: () => { console.warn("Building board") } },
 					cancel: { label: "No, take me back", click: () => { console.warn("Cancelling action") } }

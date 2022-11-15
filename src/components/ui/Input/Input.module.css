@@ -1,0 +1,11 @@
+.input-container {
+	@apply flex flex-col gap-2;
+}
+
+.input-container > label {
+	@apply flex w-full text-gray-400;
+}
+ 
+.input-container > input {
+	@apply flex bg-gray-100 w-full p-2 px-4 rounded-md;
+}

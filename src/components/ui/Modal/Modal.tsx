@@ -27,6 +27,7 @@ export function Modal({ title, subtitle, children, buttons, backdropClick, close
 				</i>
 			</header>
 			<main>
+				{children}
 			</main>
 			<footer>
 				<Button label={cancel.label} click={cancel.click} icon={<AiOutlineCloseCircle className="w-6 h-auto text-red-500" />} />
