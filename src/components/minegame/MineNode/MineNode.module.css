@@ -6,6 +6,10 @@
 	@apply active:after:bg-black active:after:opacity-10;
 }
 
+.mine-container.open:not(.mined) {
+	@apply bg-gray-300;
+}
+
 .mine-container:not(:hover) {
 	animation: opening 250ms forwards;
 }
@@ -19,7 +23,7 @@
 }
 
 .empty {
-	@apply bg-gray-300;
+	@apply bg-gray-200;
 }
 
 @keyframes opening {
