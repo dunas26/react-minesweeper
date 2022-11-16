@@ -24,15 +24,22 @@ export function BoardBuilder() {
 	});
 
 	useEffect(() => {
+		const board = generateBoard();
+		setSetupNodes(board);
+		boardDispatch({ type: 'set-idle' })
+	}, [params])
+
+	useEffect(() => {
 		const { buildParameters } = boardState;
+		if (!buildParameters) return;
 		if (!parametersHaveChanged(buildParameters)) return;
-		setParams(buildParameters);
+		setParams({ ...buildParameters });
 	}, [boardState.buildParameters])
 
 	function parametersHaveChanged(board: BoardBuildParams) {
-		return !!board && (board.width != params.width
+		return board.width != params.width
 			|| board.height != params.height
-			|| board.minePercent != params.minePercent);
+			|| board.minePercent != params.minePercent;
 	}
 
 	function generateBoard() {
@@ -49,12 +56,6 @@ export function BoardBuilder() {
 
 		return BoardMineDataSolver.solve(grid, width, height);
 	}
-
-	useEffect(() => {
-		const board = generateBoard();
-		setSetupNodes(board);
-		boardDispatch({ type: 'set-idle' })
-	}, [params])
 
 	return (
 		<section className={styles.viewport}>

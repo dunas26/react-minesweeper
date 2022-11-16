@@ -35,7 +35,7 @@ export function modalReducer<T>(state: ModalState, { type, payload }: ModalActio
 		case "update":
 			return state;
 		case "set-payload":
-			return { ...state, storedPayload: payload } as ModalState
+			return { ...state, storedPayload: { ...payload } } as ModalState
 		default:
 			throw new Error("Unhandled modal action type");
 	}

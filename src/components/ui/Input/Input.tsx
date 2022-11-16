@@ -17,16 +17,10 @@ export function Input({ label = "", value = "", placeholder = "", type = "text",
 	}, [value])
 
 	const [internalValue, setInternalValue] = useState(value);
-	const [valueEmitTimeout, setValueEmitTimeout] = useState(-1);
 
 	function handleValueChange(e: ChangeEvent<HTMLInputElement>) {
-		setInternalValue(e.target.value)
-		clearTimeout(valueEmitTimeout);
-		const timeoutId = setTimeout(() => {
-			onValue(internalValue)
-			setValueEmitTimeout(-1);
-		}, 250);
-		setValueEmitTimeout(timeoutId);
+		const { value } = e.target
+		setInternalValue(value)
 		onValue(value);
 	}
 

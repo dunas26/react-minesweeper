@@ -15,20 +15,13 @@ export function Slider({ label = "", value = 0, min = 0, max = 100, onValue = (_
 		setInternalValue(value);
 	}, [value]);
 
-	const [timeoutId, setTimeoutId] = useState(-1);
 	const [internalValue, setInternalValue] = useState(value);
 
 	function handleValueChange(e: ChangeEvent<HTMLInputElement>) {
 		const targetValue = e.target.value;
-		const numberValue = parseInt(targetValue)
-		setInternalValue(numberValue)
-		clearTimeout(timeoutId);
-		const newTimeoutId = setTimeout(() => {
-			setTimeoutId(-1);
-			setInternalValue(numberValue);
-			onValue(numberValue);
-		}, 250);
-		setTimeoutId(newTimeoutId);
+		const numberValue = parseInt(targetValue);
+		setInternalValue(numberValue);
+		onValue(numberValue);
 	}
 
 	return <article className={styles.inputContainer}>
