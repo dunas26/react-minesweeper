@@ -21,7 +21,7 @@ export function CreateBoardForm() {
 
 	useEffect(() => {
 		seed ? SeedingService.changeCurrentSeed(seed) : SeedingService.changeCurrentSeed();
-		dispatcher({ type: "set-payload", payload: { width, height, minePercent: percent / 100 } as BoardBuildParams })
+		dispatcher({ type: "set-payload", payload: { width, height, minePercent: percent } as BoardBuildParams })
 	}, [seed, height, width, percent])
 
 	function handleHeightChange(value: string) {
