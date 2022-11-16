@@ -5,6 +5,11 @@ import { BoardState } from "@interfaces/minegame/BoardState";
 const initialState: BoardState = {
 	clickMode: "normal",
 	gamestate: 'idle',
+	buildParameters: {
+		width: 5,
+		height: 5,
+		minePercent: 0.1,
+	},
 	board: {
 		seed: "",
 		flagCount: 0,

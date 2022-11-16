@@ -7,7 +7,7 @@
 }
 
 .warning-msg {
-	@apply flex items-center gap-1 text-red-500;
+	@apply flex items-center gap-2 text-red-500;
 }
 
 .seed-settings {

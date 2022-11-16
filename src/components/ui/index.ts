@@ -10,4 +10,4 @@ export { Modal } from "./Modal/Modal";
 export { ModalDataFeeder } from "./ModalDataFeeder/ModalDataFeeder"
 export { Input } from "./Input/Input";
 export { Slider } from "./Slider/Slider";
-
+export { DifficultyProber } from "./DifficultyProber/DifficultyProber";

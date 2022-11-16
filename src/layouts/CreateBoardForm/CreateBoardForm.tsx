@@ -1,14 +1,13 @@
-import { Button } from "@components/ui";
-import { Input } from "@components/ui/Input/Input";
-import { Slider } from "@components/ui/Slider/Slider";
-import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
-import { ModalDispatchContext, ModalStateContext } from "@contexts/ModalProvider";
-import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
-import SeedingService from "@services/Seeding.service";
-import { ChangeEventHandler, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineAppstoreAdd, AiOutlineWarning } from "react-icons/ai";
 
+import { Button, DifficultyProber, Input, KPICard, Slider } from "@components/ui";
+import { ModalDispatchContext } from "@contexts/ModalProvider";
+import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
+import SeedingService from "@services/Seeding.service";
+
 import styles from "./CreateBoardForm.module.css";
+import MessageService from "@services/Message.service";
 
 export function CreateBoardForm() {
 
@@ -17,7 +16,8 @@ export function CreateBoardForm() {
 	const [seed, setSeed] = useState(SeedingService.generateRandom(12))
 	const [width, setWidth] = useState(5)
 	const [height, setHeight] = useState(5)
-	const [percent, setPercent] = useState(10)
+	const [percent, setPercent] = useState(0.1)
+	const [mineValue, setMineValue] = useState(0);
 
 	useEffect(() => {
 		seed ? SeedingService.changeCurrentSeed(seed) : SeedingService.changeCurrentSeed();
@@ -30,6 +30,12 @@ export function CreateBoardForm() {
 
 	function handleWidthChange(value: string) {
 		setWidth(toInt(value))
+	}
+
+	function handlePercentChange(value: number) {
+		const fraction = value / 100;
+		setPercent(fraction);
+		setMineValue(Math.floor(fraction * width * height))
 	}
 
 	function generateNewSeed() {
@@ -51,15 +57,14 @@ export function CreateBoardForm() {
 			<Input label="Height" type="number" value={height.toString()} onValue={handleHeightChange} />
 		</section>
 		<section>
-			<Slider label="Mine percent" value={percent} onValue={value => setPercent(value)} />
+			<Slider label="Mine percent" min={5} max={95} value={percent * 100} onValue={handlePercentChange} />
 			<section className={styles.mineFormula}>
-				<p>{percent}</p>
-				<p>{width}</p>
-				<p>{height}</p>
+				<DifficultyProber percent={percent} />
+				<KPICard label="Mine count" value={mineValue} />
 			</section>
 		</section>
 		<p className={styles.warningMsg}><i>
-			<AiOutlineWarning className="w-4 h-auto" />
-		</i>You haven't completed the board yet</p>
+			<AiOutlineWarning className="w-8 h-auto" />
+		</i>{MessageService.getMessage("warning_override")}</p>
 	</section>
 }
