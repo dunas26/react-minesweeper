@@ -1,0 +1,7 @@
+.ranking-container {
+	@apply p-4;
+}
+
+.main-container { 
+	@apply flex flex-col gap-2 p-4;
+}

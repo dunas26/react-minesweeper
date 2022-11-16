@@ -1,0 +1,7 @@
+.ranking-container {
+	@apply grid gap-4 items-center grid-cols-[1fr_1fr_4fr_2fr_1fr] w-full max-w-2xl m-auto border-b border-b-gray-300 p-4 bg-white text-gray-600;
+}
+
+.label {
+	@apply font-main;
+}
