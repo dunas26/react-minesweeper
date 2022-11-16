@@ -104,8 +104,13 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		updateMineNodes();
 	}
 
+	function updateFlagCount() {
+		dispatch({ type: "update-flagcount", payload: mineNodes.filter(n => n.flagged).length })
+	}
+
 	function flagNode(nodeState: NodeState) {
 		nodeState.flagged = !nodeState.flagged;
+		updateFlagCount();
 		updateMineNodes();
 	}
 
