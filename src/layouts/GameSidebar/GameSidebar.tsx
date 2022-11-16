@@ -40,6 +40,7 @@ export function GameSidebar() {
 				buttons: {
 					accept: {
 						label: "Yes, build this board", click: (value: BoardBuildParams) => {
+							modalDispatch({ type: "close" });
 							dispatch({ type: "start-new", payload: { ...value } })
 						}
 					},
