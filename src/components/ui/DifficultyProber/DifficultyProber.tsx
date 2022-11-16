@@ -7,7 +7,7 @@ export interface DifficultyProberProps {
 	percent: number;
 }
 
-const difficultyStates = ["very_easy", "easy", "medium", "hard", "extremely_hard", "impossible"];
+const difficultyStates = ["veryeasy", "easy", "medium", "hard", "extremelyhard", "impossible"];
 const colors = ["text-lime-500", "text-lime-500 ", "text-amber-500", "text-red-600", "text-red-600", "text-purple-500"];
 
 export function DifficultyProber({ percent }: DifficultyProberProps) {

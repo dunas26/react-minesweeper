@@ -18,7 +18,7 @@ export interface ToggleStyleState {
 	off: string;
 }
 
-export function BigToggle({ label, icon, click = () => { }, on = false, styleState }: BigToggleProps) {
+export function BigToggle({ label, icon, click = () => { }, on = false, styleState = {} }: BigToggleProps) {
 
 	const [visualStyles, setVisualStyles] = useState<StyleState>({
 		label: { off: "text-black", on: "text-white" },
@@ -28,22 +28,38 @@ export function BigToggle({ label, icon, click = () => { }, on = false, styleSta
 
 	useEffect(() => {
 		setVisualStyles(prevStyles => {
-			return { ...prevStyles, ...styleState }
+			console.warn({
+				icon: { ...prevStyles.icon, ...styleState.icon },
+				label: { ...prevStyles.label, ...styleState.label },
+				toggle: { ...prevStyles.toggle, ...styleState.toggle }
+			})
+			return {
+				icon: { ...prevStyles.icon, ...styleState.icon },
+				label: { ...prevStyles.label, ...styleState.label },
+				toggle: { ...prevStyles.toggle, ...styleState.toggle }
+			}
 		});
 	}, [styleState?.icon, styleState?.label, styleState?.toggle])
 
-	const selectedStyles: { [Property in keyof StyleState]: string } = {
-		icon: on ? visualStyles.icon.on : visualStyles.icon.off,
-		label: on ? visualStyles.label.on : visualStyles.label.off,
-		toggle: on ? visualStyles.toggle.on : visualStyles.toggle.off,
+	function computeSelectedStyles(): { [Property in keyof StyleState]: string } {
+		console.warn({
+			icon: on ? visualStyles.icon.on : visualStyles.icon.off,
+			label: on ? visualStyles.label.on : visualStyles.label.off,
+			toggle: on ? visualStyles.toggle.on : visualStyles.toggle.off,
+		})
+		return {
+			icon: on ? visualStyles.icon.on : visualStyles.icon.off,
+			label: on ? visualStyles.label.on : visualStyles.label.off,
+			toggle: on ? visualStyles.toggle.on : visualStyles.toggle.off,
+		}
 	}
 
 	function handleClick() {
 		click();
 	}
 
-	return <button className={`${styles.buttonContainer} ${on ? styles.on : ""} ${selectedStyles.toggle}`} onClick={handleClick}>
-		<i className={selectedStyles.icon}>{!!icon && icon}</i>
-		<span className={selectedStyles.label}>{label}</span>
+	return <button className={`${styles.buttonContainer} ${on ? styles.on : ""} ${computeSelectedStyles().toggle}`} onClick={handleClick}>
+		<i className={computeSelectedStyles().icon}>{!!icon && icon}</i>
+		<span className={computeSelectedStyles().label}>{label}</span>
 	</button>
 }
