@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import styles from "./Title.module.css";
 
-export type TitleSize = "md" | "sm" | "xs";
+export type TitleSize = "lg" | "md" | "sm" | "xs";
 export type TitleStyle = "normal" | "low-emphasis";
 
 export interface TitleProps {
@@ -15,6 +15,7 @@ export interface TitleProps {
 export function Title({ title, subtitle, size = "md", titleStyle = "normal", icon = undefined }: TitleProps) {
 
 	const sizeClasses: { [key: string]: string } = {
+		"lg": styles.lgType,
 		"md": styles.mdType,
 		"sm": styles.smType,
 		"xs": styles.xsType,

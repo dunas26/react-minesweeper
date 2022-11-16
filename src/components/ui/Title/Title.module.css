@@ -42,14 +42,18 @@
 	@apply text-3xl;
 }
 
+.title.lg-type {
+	@apply text-5xl;
+}
+
+.subtitle.lg-type {
+	@apply text-3xl;
+}
+
 .icon-section {
-	@apply flex w-full h-fit;
+	@apply flex items-start h-fit;
 }
 
-.icon-section > * {
-	@apply m-auto;
-}
-
-.heading-sections {
+.headings-sections {
 	@apply flex flex-col w-full h-full;
 }

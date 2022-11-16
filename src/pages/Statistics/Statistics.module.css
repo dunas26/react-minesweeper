@@ -1,0 +1,15 @@
+.page-container {
+	@apply p-4;
+}
+
+.time-section, .difficulty-section {
+	@apply grid gap-4 lg:grid-cols-2 max-w-lg m-auto mb-16;
+}
+
+.kpi-played {
+	@apply lg:col-start-1 lg:col-end-3 mb-8;
+}
+
+.kpi-avg-hours {
+	@apply lg:col-start-1 lg:col-end-3 mb-24;
+}

@@ -11,6 +11,15 @@ const messages: { [key: string]: string } = {
 	difficulty_extremely_hard: "Extremely hard",
 	difficulty_impossible: "Impossible",
 	warning_override: "This action will override your current board and your current game. Proceed with caution",
+	title_statistics: "Your statistics",
+	title_timeinfo: "Gametime information",
+	title_difficultyinfo: "Game difficulty analysis",
+	kpi_hours: "Total board hours",
+	kpi_lastboard: "Last completed board date",
+	kpi_won: "Wins",
+	kpi_lost: "Losses",
+	kpi_played: "Played",
+	kpi_avghours: "Average solve time",
 }
 
 function getMessage(key: string): string {
