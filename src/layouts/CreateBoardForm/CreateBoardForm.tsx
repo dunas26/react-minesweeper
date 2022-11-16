@@ -9,6 +9,7 @@ import SeedingService from "@services/Seeding.service";
 import styles from "./CreateBoardForm.module.css";
 import MessageService from "@services/Message.service";
 import BoardParamCacheService from "@services/BoardParamCache.service";
+import BoardGenerationService from "@services/BoardGeneration.service";
 
 export function CreateBoardForm() {
 
@@ -52,7 +53,7 @@ export function CreateBoardForm() {
 	function handlePercentChange(value: number) {
 		const fraction = value / 100;
 		setPercent(fraction);
-		setMineValue(Math.floor(fraction * width * height))
+		setMineValue(BoardGenerationService.calculateMineCount(fraction, width, height));
 	}
 
 	function generateNewSeed() {

@@ -7,13 +7,19 @@ import { NodeData, SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import GeometryService from "./Geometry.service";
 import SeedingService from './Seeding.service';
 
+function calculateMineCount(percent: number, width: number, height: number) {
+	let maxPossibleCount = width * height;
+	let count = Math.floor(maxPossibleCount * percent);
+
+	if (count > width * height) count = width * height;
+	if (count <= 0) count = Math.round(Math.max(1, 0.1 * maxPossibleCount));
+	return count;
+}
+
 function generate(columns: number, rows: number, mineFillPercent: number = 0.1): BoardGameData {
 	const totalRows = columns * rows;
 	let grid = new Array<NodeData>(totalRows).fill(" " as NodeData);
-	let mineCount = Math.floor(totalRows * mineFillPercent);
-
-	if (mineCount > totalRows) mineCount = totalRows;
-	if (mineCount <= 0) mineCount = Math.round(Math.max(1, 0.1 * totalRows));
+	const mineCount = calculateMineCount(mineFillPercent, columns, rows);
 
 	const rand = new Rand(SeedingService.getCurrentState().seed);
 	for (let i = 0; i < mineCount;) {
@@ -62,5 +68,5 @@ function fetchNeighbors(nodes: NodeState[], idx: number, width: number, height: 
 }
 
 export default {
-	generate, buildInitialState, fetchNeighbors
+	generate, buildInitialState, fetchNeighbors, calculateMineCount
 }
