@@ -39,11 +39,12 @@ function buildDefaultValues(): BoardState {
 function buildResetState(prevState: BoardState): BoardState {
 	const state = { ...prevState };
 	state.timeState = buildDefaultValues().timeState;
+	state.buildParameters = { ...prevState.buildParameters };
 	state.board = {
 		...prevState.board,
 		score: 0,
 		flagCount: 0,
-	}
+	};
 	return state;
 }
 

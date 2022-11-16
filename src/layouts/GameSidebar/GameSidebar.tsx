@@ -32,6 +32,10 @@ export function GameSidebar() {
 		return gamestate == "lost" || gamestate == "won"
 	}
 
+	function handleResetGame() {
+		dispatch({ type: "reset" })
+	}
+
 	function handleStartNewGame() {
 		modalDispatch<ModalState>({
 			type: "open", payload: {
@@ -69,7 +73,7 @@ export function GameSidebar() {
 			<CardGroup title="Board Actions">
 				<section className={styles.boardActions}>
 					<Button click={handleStartNewGame} label="Start new game" icon={<AiOutlinePlusCircle className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
-					<Button click={() => dispatch({ type: "reset" })} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
+					<Button click={handleResetGame} label="Reset the board" icon={<AiOutlineReload className={`${styles.iconSize} ${styles.boardIconColor}`} />} />
 				</section>
 			</CardGroup>
 			<CardGroup title="Board Details" hide={shouldBeHidden()}>

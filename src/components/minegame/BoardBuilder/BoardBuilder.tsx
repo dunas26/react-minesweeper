@@ -36,6 +36,19 @@ export function BoardBuilder() {
 		setParams({ ...buildParameters });
 	}, [boardState.buildParameters])
 
+	useEffect(() => {
+		const { gamestate, buildParameters } = boardState;
+		switch (gamestate) {
+			case "preparing":
+				// If the state is preparing -> perform a board reset
+				setParams({ ...buildParameters })
+				break;
+			default:
+				break;
+		}
+
+	}, [boardState.gamestate])
+
 	function parametersHaveChanged(board: BoardBuildParams) {
 		return board.width != params.width
 			|| board.height != params.height
