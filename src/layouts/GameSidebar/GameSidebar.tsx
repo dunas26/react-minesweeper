@@ -12,6 +12,7 @@ import { ModalDispatchContext } from "@contexts/ModalProvider";
 import { ModalState } from "@interfaces/ui/ModalState";
 import { CreateBoardForm } from "@layouts/CreateBoardForm/CreateBoardForm";
 import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
+import BoardParamCacheService from "@services/BoardParamCache.service";
 
 export function GameSidebar() {
 
@@ -44,6 +45,7 @@ export function GameSidebar() {
 				buttons: {
 					accept: {
 						label: "Yes, build this board", click: (value: BoardBuildParams) => {
+							BoardParamCacheService.saveParams(value);
 							modalDispatch({ type: "close" });
 							dispatch({ type: "start-new", payload: { ...value } })
 						}

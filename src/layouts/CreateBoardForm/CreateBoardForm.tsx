@@ -8,21 +8,38 @@ import SeedingService from "@services/Seeding.service";
 
 import styles from "./CreateBoardForm.module.css";
 import MessageService from "@services/Message.service";
+import BoardParamCacheService from "@services/BoardParamCache.service";
 
 export function CreateBoardForm() {
 
 	const dispatcher = useContext(ModalDispatchContext);
 
-	const [seed, setSeed] = useState(SeedingService.generateRandom(12))
+	const [seed, setSeed] = useState(SeedingService.getCurrentState().seed || SeedingService.generateRandom(12))
 	const [width, setWidth] = useState(5)
 	const [height, setHeight] = useState(5)
 	const [percent, setPercent] = useState(0.1)
 	const [mineValue, setMineValue] = useState(0);
 
 	useEffect(() => {
+		const params = BoardParamCacheService.getParams();
+		if (!params) return;
+		setCacheFormValues(params);
+	}, [])
+
+	useEffect(() => {
+		setMineValue(Math.floor(percent * width * height))
+	}, [percent])
+
+	useEffect(() => {
 		seed ? SeedingService.changeCurrentSeed(seed) : SeedingService.changeCurrentSeed();
 		dispatcher({ type: "set-payload", payload: { width, height, minePercent: percent } as BoardBuildParams })
 	}, [seed, height, width, percent])
+
+	function setCacheFormValues({ width, height, minePercent }: BoardBuildParams) {
+		setWidth(width);
+		setHeight(height);
+		setPercent(minePercent);
+	}
 
 	function handleHeightChange(value: string) {
 		setHeight(toInt(value))
