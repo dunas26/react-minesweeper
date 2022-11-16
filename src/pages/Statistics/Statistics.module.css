@@ -13,3 +13,7 @@
 .kpi-avg-hours {
 	@apply lg:col-start-1 lg:col-end-3 mb-24;
 }
+
+.difficulty-selector {
+	@apply grid grid-cols-2 md:grid-cols-3 gap-4 max-w-xl m-auto mb-8;
+}
