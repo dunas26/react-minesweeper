@@ -3,9 +3,9 @@
 }
 
 .value {
-	@apply font-light text-6xl;
+	@apply font-light text-6xl text-center;
 }
 
 .label {
-	@apply font-bold text-xl;
+	@apply font-bold text-xl text-center;
 }
