@@ -1,0 +1,11 @@
+.instructions-container {
+	@apply absolute flex flex-col gap-2 p-6 bg-white opacity-30 bottom-0 right-0 pointer-events-none;
+}
+
+.instructions-container > section {
+	@apply flex items-center gap-2 font-main;
+}
+
+.instructions-container > section > img {
+	@apply w-4;
+}
