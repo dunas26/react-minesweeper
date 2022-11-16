@@ -23,16 +23,11 @@ export function BigToggle({ label, icon, click = () => { }, on = false, styleSta
 	const [visualStyles, setVisualStyles] = useState<StyleState>({
 		label: { off: "text-black", on: "text-white" },
 		icon: { off: "text-cyan-500", on: "text-white" },
-		toggle: { off: "bg-white", on: "text-cyan-500" }
+		toggle: { off: "bg-white", on: "bg-cyan-500" }
 	})
 
 	useEffect(() => {
 		setVisualStyles(prevStyles => {
-			console.warn({
-				icon: { ...prevStyles.icon, ...styleState.icon },
-				label: { ...prevStyles.label, ...styleState.label },
-				toggle: { ...prevStyles.toggle, ...styleState.toggle }
-			})
 			return {
 				icon: { ...prevStyles.icon, ...styleState.icon },
 				label: { ...prevStyles.label, ...styleState.label },
@@ -42,11 +37,6 @@ export function BigToggle({ label, icon, click = () => { }, on = false, styleSta
 	}, [styleState?.icon, styleState?.label, styleState?.toggle])
 
 	function computeSelectedStyles(): { [Property in keyof StyleState]: string } {
-		console.warn({
-			icon: on ? visualStyles.icon.on : visualStyles.icon.off,
-			label: on ? visualStyles.label.on : visualStyles.label.off,
-			toggle: on ? visualStyles.toggle.on : visualStyles.toggle.off,
-		})
 		return {
 			icon: on ? visualStyles.icon.on : visualStyles.icon.off,
 			label: on ? visualStyles.label.on : visualStyles.label.off,
