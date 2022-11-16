@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Main } from "@layouts";
-import { GameBoard, Statistics } from "@pages";
+import { GameBoard, Ranking, Statistics } from "@pages";
 
 export function App() {
 
@@ -12,6 +12,7 @@ export function App() {
 					<Routes>
 						<Route path="/" element={<GameBoard />} />
 						<Route path="/statistics" element={<Statistics />} />
+						<Route path="/ranking" element={<Ranking />} />
 					</Routes>
 				</Main>
 			</div>
