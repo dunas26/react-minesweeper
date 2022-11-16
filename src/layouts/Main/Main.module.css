@@ -3,5 +3,13 @@
 }
 
 .main-section {
-	@apply flex-1 grid grid-cols-[16rem,auto] grid-rows-1;
+	@apply flex-1 grid grid-rows-1 transition-[grid];
+}
+
+.main-section.sidebar-expanded {
+	@apply grid-cols-[16rem,auto];
+}
+
+.main-section {
+	@apply grid-cols-[6rem,auto];
 }

@@ -1,14 +1,14 @@
 .sidebar-container {
-	@apply flex bottom-0 left-0 w-full top-24;
-}
-
-.sidebar-container:not(.expanded) {
-	@apply w-fit;
+	@apply relative flex w-full;
 }
 
 .resizer {
-	@apply block h-full w-1 bg-gray-200;
-	@apply hover:bg-amber-500 cursor-col-resize;
+	@apply absolute -right-3 top-[35%] flex items-center justify-center w-fit h-44 bg-white rounded-2xl shadow-md border border-gray-300 transition-[color_transform] rotate-0 z-20;
+	@apply hover:cursor-pointer hover:bg-gray-200 hover:translate-x-1;
+}
+
+.resizer:not(.expanded) > * {
+	@apply -rotate-180;
 }
 
 .sidebar-container > main {

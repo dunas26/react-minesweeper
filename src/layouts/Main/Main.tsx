@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { RiGamepadLine } from "react-icons/ri";
 import { AiOutlineCalendar, AiOutlineTrophy } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -24,12 +24,18 @@ export function Main({ children = undefined }: MainLayoutProps) {
 		</>
 	}
 
-	return <section className={styles.mainContainer}>
+	const [expanded, setExpanded] = useState(true);
+
+	function onExpand(expanded: boolean) {
+		setExpanded(expanded);
+	}
+
+	return <section className={`${styles.mainContainer}`} >
 		<Header />
-		<main className={styles.mainSection}>
-			<Sidebar children={(expanded: boolean) => sidebarButtons(expanded)} />
+		<main className={`${styles.mainSection} ${expanded ? styles.sidebarExpanded : ""}`} >
+			<Sidebar children={(expanded: boolean) => sidebarButtons(expanded)} onExpandChange={onExpand} />
 			{!!children && children}
 		</main>
 		<Footer />
-	</section>
+	</ section>
 }
