@@ -1,0 +1,7 @@
+.stars-container {
+	@apply flex flex-col justify-center;
+}
+
+.stars-container > section {
+	@apply text-amber-400 flex justify-center w-full;
+}
