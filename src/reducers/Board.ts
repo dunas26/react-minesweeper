@@ -65,7 +65,7 @@ export function BoardReducer<T>(state: BoardState, { type, payload }: BoardActio
 			return { ...state, timeState: { ...state.timeState, elapsed: currentElapsedSeconds + 1 } }
 		case "start-new":
 			SeedingService.changeCurrentSeed()
-			return { ...state, board: { ...state.board, score: 0 }, buildParameters: { ...defaultValues.buildParameters, ...(payload as BoardBuildParams) }, gamestate: 'preparing' }
+			return { ...state, board: { ...state.board, flagCount: 0, score: 0 }, buildParameters: { ...defaultValues.buildParameters, ...(payload as BoardBuildParams) }, gamestate: 'preparing' }
 		case "reset":
 			const resetState = buildResetState(state);
 			return { ...resetState, gamestate: 'preparing' }
