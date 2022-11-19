@@ -131,6 +131,7 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		}
 		nodeState.mined ? openAll() : open(nodeState);
 		nodeState.open = true;
+		if (nodeState.mined) dispatch({ type: 'set-lost' });
 	}
 
 	function openByMode(node: NodeState, clickMode: ClickMode) {
@@ -165,7 +166,6 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		openByMode(node, clickMode)
 		updateMineNodes()
 		if (state.gamestate != "ongame") dispatch({ type: "set-ongame" })
-		if (node.open && node.mined) dispatch({ type: 'set-lost' });
 	}
 
 	const renderBoard = () => {
