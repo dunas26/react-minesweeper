@@ -1,0 +1,12 @@
+.daily-container {
+	@apply flex flex-col gap-4 p-4;
+}
+
+.main-container {
+	@apply flex flex-1 w-full p-4;
+}
+
+.main-container .content {
+	@apply flex flex-col gap-6 items-center max-w-lg w-full text-center m-auto mt-32;
+}
+

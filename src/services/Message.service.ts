@@ -20,6 +20,10 @@ const messages: { [key: string]: string } = {
 	kpi_lost: "Losses",
 	kpi_played: "Played",
 	kpi_avghours: "Average solve time",
+	button_startdaily: "Start the daily challenge",
+	text_startdaily: "Welcome to our daily challenge. You only have 3 opportunities to solve a predefined hard challenge. Wish you luck",
+	text_nodaily: "You've reached your limit of daily tries. You can try again your next challenge for tomorrow"
+
 }
 
 function getMessage(key: string): string {
