@@ -1,3 +1,7 @@
 .footer-container {
-	@apply flex w-full h-16 flex-shrink-0 justify-center items-center border-t border-t-gray-300;
+	@apply flex w-full h-16 flex-shrink-0 justify-center items-center border-t border-t-gray-300 gap-2;
+}
+
+.icon-section {
+	@apply flex items-center gap-1;
 }
