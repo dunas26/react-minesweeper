@@ -165,7 +165,11 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		const clickMode = state.clickMode;
 		openByMode(node, clickMode)
 		updateMineNodes()
-		if (state.gamestate != "ongame") dispatch({ type: "set-ongame" })
+
+		// If the gamestate is different to an idle gamestate and is not into a mine node
+		const idleGamestates = ["idle", "preparing"]
+		const { gamestate } = state;
+		if (!node.mined && idleGamestates.findIndex(state => state == gamestate) !== -1) dispatch({ type: "set-ongame" })
 	}
 
 	const renderBoard = () => {
