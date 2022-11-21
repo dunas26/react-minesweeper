@@ -28,7 +28,10 @@ export function CreateBoardForm() {
 	}, [])
 
 	useEffect(() => {
-		setMineValue(Math.floor(percent * width * height))
+		const tileCount = width * height;
+		const mineCount = Math.floor(percent * tileCount);
+		setMineValue(mineCount);
+		setPercent(mineCount / tileCount)
 	}, [percent])
 
 	useEffect(() => {
