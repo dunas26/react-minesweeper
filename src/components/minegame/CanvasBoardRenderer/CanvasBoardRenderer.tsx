@@ -241,8 +241,11 @@ export function CanvasBoardRenderer({ nodes, nodeClick, rightClick, width, heigh
 		}
 
 		if (!node.open && node.flagged) {
-			if (!img.src) img.src = flag;
-			ctx.drawImage(img, position.x - (nodeSize * 0.025), position.y + (nodeSize / 6));
+			if (!img.src) {
+				img.src = flag;
+			}
+			const size = img.width * window.devicePixelRatio * canvasZoom;
+			ctx.drawImage(img, position.x - (size * 0.025), position.y, size, size);
 		}
 	}
 
