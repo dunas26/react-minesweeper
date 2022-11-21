@@ -18,7 +18,6 @@ export interface BoardStateControllerProps {
 
 export function BoardStateController({ width, height, setupNodes }: BoardStateControllerProps) {
 
-	const [styleSection, setStyleSection] = useState(computeStyle(width))
 	const [mineNodes, setMineNodes] = useState<NodeState[]>([]);
 	const [actionable, setActionable] = useState(true);
 
@@ -73,21 +72,10 @@ export function BoardStateController({ width, height, setupNodes }: BoardStateCo
 
 	useEffect(() => {
 		setMineNodes(BoardGenerationService.buildInitialState(setupNodes, width, height))
-		setStyleSection(computeStyle(width))
 	}, [setupNodes])
 
 	function updateMineNodes() {
 		setMineNodes(prevMineNodes => [...prevMineNodes])
-	}
-
-	function computeStyle(width: number) {
-		return {
-			display: "grid",
-			gridTemplateColumns: `repeat(${width}, min-content)`,
-			width: "min-content",
-			height: "max-content",
-			margin: "1rem",
-		} as React.CSSProperties
 	}
 
 	function solveNode(uuid: string) {
