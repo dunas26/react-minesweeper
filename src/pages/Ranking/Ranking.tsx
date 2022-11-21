@@ -27,7 +27,7 @@ export function Ranking() {
 		<Title title="Ranking" icon={<AiOutlineTrophy className="w-16 h-auto text-amber-500" />} size="lg" />
 		<main className={styles.mainContainer}>
 			{ranking.map(({ label, difficulty, score }, index) => {
-				return <RankingBadge position={index + 1} label={label} difficulty={difficulty} score={score} />
+				return <RankingBadge key={`${label}${difficulty}${score}${index}`} position={index + 1} label={label} difficulty={difficulty} score={score} />
 			})}
 		</main>
 	</section>
