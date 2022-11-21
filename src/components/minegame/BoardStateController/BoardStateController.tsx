@@ -3,19 +3,20 @@ import { useContext, useEffect, useState } from "react";
 import BoardGenerationService from "@services/BoardGeneration.service";
 import { NodeState } from "@interfaces/minegame/NodeState";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
-import { MineNode } from "@components/minegame";
 import { BoardDispatcherContext, BoardStateContext } from "@contexts/BoardProvider";
-import styles from "./Board.module.css";
+import styles from "./BoardStateController.module.css";
 import { WinEvaluationParams } from "@interfaces/minegame/WinEvaluationParams";
 import { ClickMode } from "@apptypes/ClickMode";
+import { BoardRenderer } from "../BoardRenderer/BoardRenderer";
+import { CanvasBoardRenderer } from "@components/minegame";
 
-export interface BoardProps {
+export interface BoardStateControllerProps {
 	width: number;
 	height: number;
 	setupNodes: SetupNodeData[];
 }
 
-export function Board({ width, height, setupNodes }: BoardProps) {
+export function BoardStateController({ width, height, setupNodes }: BoardStateControllerProps) {
 
 	const [styleSection, setStyleSection] = useState(computeStyle(width))
 	const [mineNodes, setMineNodes] = useState<NodeState[]>([]);
@@ -172,19 +173,9 @@ export function Board({ width, height, setupNodes }: BoardProps) {
 		if (!node.mined && idleGamestates.findIndex(state => state == gamestate) !== -1) dispatch({ type: "set-ongame" })
 	}
 
-	const renderBoard = () => {
-		return (
-			<section style={styleSection}>
-				{mineNodes.map(({ uuid, mined, mineCount: surroundingMines, open, flagged }) => {
-					return <MineNode key={uuid} uuid={uuid} isMined={mined} isFlagged={flagged} surroundingMines={surroundingMines} visible={open} nodeClick={onNodeClick} rightClick={flagClick} />
-				})}
-			</section>
-		)
-	}
-
 	return (
-		<section className={styles.boardContainer}>
-			{renderBoard()}
+		<section onContextMenu={(e) => e.preventDefault()} className={styles.boardContainer}>
+			<CanvasBoardRenderer nodes={mineNodes} nodeClick={onNodeClick} rightClick={flagClick} width={width} height={height} />
 		</section>
 	)
 }

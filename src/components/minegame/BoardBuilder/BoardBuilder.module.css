@@ -1,3 +1,3 @@
 .viewport {
-	@apply flex overflow-auto p-6;
+	@apply flex overflow-auto p-6 w-full h-full;
 }

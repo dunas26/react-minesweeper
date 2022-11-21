@@ -1,4 +1,5 @@
 export { MineNode } from "./MineNode/MineNode";
-export { Board } from "./Board/Board";
+export { BoardStateController } from "./BoardStateController/BoardStateController";
 export { BoardBuilder } from "./BoardBuilder/BoardBuilder";
 export { DifficultyStars } from "./DifficultyStars/DifficultyStars";
+export { CanvasBoardRenderer } from "./CanvasBoardRenderer/CanvasBoardRenderer";

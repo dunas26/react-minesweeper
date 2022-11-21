@@ -5,7 +5,7 @@ import { BoardBuildParams } from "@interfaces/minegame/BoardBuildParams";
 import { SetupNodeData } from "@interfaces/minegame/NodeTypes";
 import BoardGenerationService from "@services/BoardGeneration.service";
 import BoardMineDataSolver from "@services/BoardMineDataSolver.service";
-import { Board } from "@components/minegame";
+import { BoardStateController } from "@components/minegame";
 
 import styles from "./BoardBuilder.module.css";
 import { BoardState } from "@interfaces/minegame/BoardState";
@@ -72,7 +72,7 @@ export function BoardBuilder() {
 
 	return (
 		<section className={styles.viewport}>
-			<Board setupNodes={setupNodes} height={params.height} width={params.width} />
+			<BoardStateController setupNodes={setupNodes} height={params.height} width={params.width} />
 		</section>
 	)
 }
